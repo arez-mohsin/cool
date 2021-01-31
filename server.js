@@ -56,6 +56,34 @@ client.on('message', msg => {
   });
 
 client.on('message', msg => {
+    if (msg.content === 'reklam agornawa mama') {
+      msg.reply('gyani mama bnera bo mn');
+    }
+  });
+
+client.on('message', msg => {
+    if (msg.content === 'slav reklam agornawa') {
+      msg.reply('bale ps mam bnera bo mn');
+    }
+  });
+  client.on('message', msg => {
+    if (msg.content === 'ڕیکلام هەیە مامە') {
+      msg.reply('بەڵێ دڵم بنێرە');
+    }
+  });
+client.on('message', msg => {
+    if (msg.content === 'ڕیکلام دەگۆڕنەوە ئێوە') {
+      msg.reply('بەڵێ دڵم بنێرە');
+    }
+  });
+
+client.on('message', msg => {
+    if (msg.content === 'سلاو ریکلام هیە') {
+      msg.reply('بەڵێ دڵم بنێرە');
+    }
+  });
+
+client.on('message', msg => {
     if (msg.content === 'ڕیکلام ئەگۆڕنەوە') {
       msg.reply('بۆ منی بنێرە گیان');
     }
@@ -66,5 +94,4 @@ client.on('message', msg => {
       msg.reply('بنێرە بۆ من دڵم');
     }
   });
-  
 client.login(process.env.TOKEN);
