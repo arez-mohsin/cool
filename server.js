@@ -33,7 +33,7 @@ client.on("message", message => {
 if (message.channel.type === "dm") {
 if(message.content.startsWith("https://discord.gg")) 
 client.channels.cache.get("803526086604095497").send(`<@${message.author.id}> ${message.content}`)
-message.author.send("**https://discord.gg/VjRd5VfJCr Done chek partner**")
+message.author.send("**https://discord.gg/VjRd5VfJCr دانرا تۆش داینە دڵم**")
 message.author.send("<#803526086604095497>")
 }
 });
