@@ -39,7 +39,7 @@ message.author.send("<#803526086604095497>")
 });
 
 client.on('message', msg => {
-    if (msg.content === 'Reklam akan') {
+    if (msg.content === 'reklam akan') {
       msg.reply('BOM BNERA');
     }
   });
@@ -50,7 +50,7 @@ client.on('message', msg => {
   });
 
 client.on('message', msg => {
-    if (msg.content === 'Slaw reklam agornawa') {
+    if (msg.content === 'slaw reklam agornawa') {
       msg.reply('BOM BNERA');
     }
   });
