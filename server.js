@@ -26,7 +26,7 @@ console.log('♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔');
 console.log('By black jack');/////BLACK JACK 
 console.log('♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔');
 console.log(`Logged in as ${client.user.tag}!`);
-client.user.setActivity(`PARTNER BOT | CREATED BY BLACK JACK `)///////shtek bnwsa
+client.user.setActivity(`Partner Bot|ڕیکلام بۆ من بنێرە `)///////shtek bnwsa
 client.user.setStatus("dnd")/////ba dly xot statusek bnwsa
 console.log(`Logined`)
 })
