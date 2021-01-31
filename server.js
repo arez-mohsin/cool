@@ -21,23 +21,20 @@ const db = new enmap({ name: "test" });
 
 
 
-client.on("ready", () => {
-console.log('♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔');
-console.log('By black jack');/////BLACK JACK 
-console.log('♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔♔');
-console.log(`Logged in as ${client.user.tag}!`);
-client.user.setActivity(`Partner Bot|ڕیکلام بۆ من بنێرە `)///////shtek bnwsa
-client.user.setStatus("dnd")/////ba dly xot statusek bnwsa
-console.log(`Logined`)
-})
 
+
+client.on("ready", async () => {
+    console.log(`Bot Is Ready To Go & Online!`);
+    client.user.setActivity(`PARTNER BOT | لینکی سێرڤەر بنێرە`);
+  
+});
 
 client.on("message", message => {
 if (message.channel.type === "dm") {
 if(message.content.startsWith("https://discord.gg")) 
 client.channels.cache.get("803526086604095497").send(`<@${message.author.id}> ${message.content}`)
 message.author.send("**https://discord.gg/VjRd5VfJCr Done chek partner**")
-message.author.send("<803526086604095497>")
+message.author.send("<#803526086604095497>")
 }
 });
 
