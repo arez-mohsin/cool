@@ -31,10 +31,12 @@ client.on("ready", async () => {
 
 client.on("message", message => {
 if (message.channel.type === "dm") {
-if(message.content.includes("https://discord.gg")) 
-client.channels.cache.get("803526086604095497").send(`<@${message.author.id}> ${message.content}`)
-message.author.send("**https://discord.gg/VjRd5VfJCr دانرا تۆش داینە دڵم**")
+if(message.content.startsWith("https://discord.gg")) 
 message.author.send("<#803526086604095497>")
+message.author.send("**Done check partner https://discord.gg/WYBp6UPDUK**")
+message.author.send(`<@${message.author.id}>`)
+client.channels.cache.get("803526086604095497").send(`<@${message.author.id}> ${message.content}`)
+
 }
 });
 
