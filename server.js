@@ -32,9 +32,9 @@ client.on("ready", async () => {
 client.on("message", message => {
 if (message.channel.type === "dm") {
 if(message.content.startsWith("https://discord.gg")) 
-client.channels.cache.get("803526086604095497").send(`<@${message.author.id}> ${message.content}`)
-message.author.send("**https://discord.gg/WYBp6UPDUK دانرا تۆش داینە دڵم**")
-message.author.send("<#803526086604095497>")
+client.channels.cache.get("791375976579465216").send(`<@${message.author.id}> ${message.content}`)
+message.author.send("** دانرا تۆش داینە دڵم   https://discord.gg/WYBp6UPDUK**")
+message.author.send("791375976579465216")
 }
 });
 
@@ -94,4 +94,4 @@ client.on('message', msg => {
       msg.reply('بنێرە بۆ من دڵم');
     }
   });
-client.login(process.env.TOKEN);
+client.login("ODA2MjI2NTE0MjU2NDYxODY0.YBmW8w.go2x6IDM0xT4VE4ZnK4L-2yVVZ4");
