@@ -13,7 +13,8 @@
     "ms": "^2.1.2",
     "express": "4.17.1",
     "opusscript": "0.0.7",
-    "ytdl-core": "^3.2.2"
+    "ytdl-core": "^3.2.2",
+    "user-instagram": "^2.1.8"
   },
   "scripts": {
     "start": "node server.js"
