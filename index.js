@@ -2,6 +2,7 @@
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
+const TOKEN = process.env.TOKEN_BOT
 const prefix = "B"
 const { Client, Intents, MessageEmbed, Permissions } = require("discord.js");
 const client = new Client({
@@ -27,7 +28,7 @@ client.on("ready", async () => {
 
 const cooldown= new Set()
 const cdtime = 60
-client.on("message", message => {
+client.on("messageCreate", message => {
 if (message.channel.type === "dm") {
   if (cooldown.has(message.author.id)) {
       return message.author
@@ -49,12 +50,12 @@ message.author.send("<#968655183758381070>")
 }
 });
 
-client.on('message', msg => {
+client.on('messageCreate', msg => {
     if (msg.content === 'Reklam') {
       msg.reply('BOM BNERA');
     }
   });
-client.on('message', msg => {
+client.on('messageCreate', msg => {
     if (msg.content === 'Reklam haya') {
       msg.reply('BOM BNERA');
     }
@@ -93,4 +94,4 @@ client.on("messageCreate", message => {
 )}
 });
 
-client.login(process.env.TOKEN);
+client.login(TOKEN);
