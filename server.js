@@ -32,9 +32,10 @@ client.on("ready", async () => {
 client.on("message", message => {
 if (message.channel.type === "dm") {
 if(message.content.startsWith("https://discord.gg")) 
-client.channels.cache.get("791375976579465216").send(`<@${message.author.id}> ${message.content}`)
 message.author.send("**> دانرا تۆش داینە دڵم  https://discord.gg/WYBp6UPDUK **")
 message.author.send("<#791375976579465216>")
+let check = message.guild.channels.cache.get(ch => ch.id === "968655183758381070")
+check.send(`<@${message.author.id}> ${message.content}`)
 }
 });
 
@@ -94,4 +95,4 @@ client.on('message', msg => {
       msg.reply('بنێرە بۆ من دڵم');
     }
   });
-client.login("TOKEN DANE");
+client.login("ODAzNTk4NzgwOTQzMzAyNjU2.YBAHrw.Nti1vyRCUj38VUVIJCavGdb38PA");
