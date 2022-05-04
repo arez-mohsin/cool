@@ -1,23 +1,21 @@
+const http = require("http");
+const express = require("express");
+const app = express();
 
-const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, ".env") });
-
-const TOKEN = process.env.TOKEN_BOT
-
-const { Client, Intents, MessageEmbed, Permissions } = require("discord.js");
-const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+app.get("/", (request, response) => {
+  response.sendStatus(200);
 });
-const fs = require("fs");
+
+app.listen(process.env.PORT);
+
+setInterval(() => {
+  http.get(`http://partner1er1.glitch.me/`);
+}, 280000);
+
+const Discord = require("discord.js");
 const ms = require("ms");
-let count = 0;
-setInterval(
-  () =>
-    require("node-fetch")(process.env.URL).then(() =>
-      console.log(`[${++count}] here i pinged ${process.env.URL}`)
-    ),
-  300000
-);
+const moment = require("moment");
+const client = new Discord.Client();
 
 
 client.on("ready", async () => {
@@ -65,4 +63,4 @@ message.author.send("<#968655183758381070>")
 
 
 
-client.login(TOKEN);
+client.login(process.env.TOKEN_BOT);
