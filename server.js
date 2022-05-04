@@ -29,13 +29,26 @@ client.on("ready", async () => {
   
 });
 
+const cooldown= new Set()
 client.on("message", message => {
 if (message.channel.type === "dm") {
 if(message.content.startsWith("https://discord.gg")) 
-message.author.send("**> دانرا تۆش داینە دڵم  https://discord.gg/WYBp6UPDUK **")
-message.author.send("<#791375976579465216>")
-let check = message.guild.channels.cache.get(ch => ch.id === "968655183758381070")
-check.send(`<@${message.author.id}> ${message.content}`)
+if (cooldown.has(message.author.id)) {
+      return message.channel
+        .send(`:stopwatch: | **Please wait for ${cdtime} second**`)
+        .then(m => {
+          m.delete({ timeout: cdtime * 600 });
+        });
+    }
+
+    cooldown.add(message.author.id);
+
+    setTimeout(() => {
+      cooldown.delete(message.author.id);
+    }, cdtime * 1000);  
+client.channels.cache.get("968655183758381070").send(`<@${message.author.id}> ${message.content}`)
+message.author.send("Done check partner https://discord.gg/cPP42KMD")
+message.author.send("<#968655183758381070>")
 }
 });
 
