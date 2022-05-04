@@ -3,7 +3,7 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
 const TOKEN = process.env.TOKEN_BOT
-const prefix = "B"
+
 const { Client, Intents, MessageEmbed, Permissions } = require("discord.js");
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
@@ -26,9 +26,20 @@ client.on("ready", async () => {
   
 });
 
+client.on('message', msg => {
+    if (msg.content === 'Reklam') {
+      msg.reply('BOM BNERA');
+    }
+  });
+client.on('message', msg => {
+    if (msg.content === 'Reklam haya') {
+      msg.reply('BOM BNERA');
+    }
+  });
+
 const cooldown= new Set()
 const cdtime = 60
-client.on("messageCreate", message => {
+client.on("message", message => {
 if (message.channel.type === "dm") {
   if (cooldown.has(message.author.id)) {
       return message.author
@@ -50,48 +61,8 @@ message.author.send("<#968655183758381070>")
 }
 });
 
-client.on('messageCreate', msg => {
-    if (msg.content === 'Reklam') {
-      msg.reply('BOM BNERA');
-    }
-  });
-client.on('messageCreate', msg => {
-    if (msg.content === 'Reklam haya') {
-      msg.reply('BOM BNERA');
-    }
-  });
 
 
 
-
-
-client.on("messageCreate", message => {
-  if (message.content.startsWith(prefix + "templock")) {  
-    if (!message.member.permissions.has("MANAGE_GUILD")) return
-    let args = message.content.split(" ").slice(1).join(" ")
-    if(!args) return message.reply(`Usage: ${prefix}templock 1s or 1m or 1h or 1d`)
-    message.channel.permissionOverwrites
-      .create(message.guild.id, { SEND_MESSAGES: false })
-      .then(() => { 
-        const embed = new MessageEmbed()
-          .setThumbnail(message.author.avatarURL())
-          .setTitle("LOCKED CHANNEL")
-          .addField("Channel Locked", `${message.channel.name}`)
-          .addField("Moderation", `<@${message.author.id}>`, true)
-          .setColor("RANDOM");
-        message.channel.send({ embeds: [embed] })
-      let locktime = (`${args}`)
-    setTimeout(function() {
-       message.channel.permissionOverwrites
-      .create(message.guild.id, { SEND_MESSAGES: true })
-      let end = new MessageEmbed()
-      .setTitle("TempLock Has Been End")
-      .setColor("RANDOM")
-      .setDescription("**Now Channel Has Been Unlock chat**")
-      message.channel.send({embeds: [end]})
-        }, ms(locktime));       
-  }
-)}
-});
 
 client.login(TOKEN);
