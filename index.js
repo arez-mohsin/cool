@@ -43,7 +43,13 @@ if(!member) return message.reply("Member Not Founded")
   .setTitle("Done Added on Trusted List")
   .addField("Member", member.toString())
   .setFooter(message.guild.name)
-  message.channel.send({embeds: [embed]})     
+  message.channel.send({embeds: [embed]})   
+  if(!trust[member.id])
+trust[member.guild.id] = {
+trusted: "Off"
+}      
+  if(trust[member.id].trusted === "Off") {
+  }
 trust[member.id].trusted = "On";
 }
   saveList()
@@ -60,7 +66,13 @@ if(!member) return message.reply("Member Not Founded")
   .setTitle("Done Added on Trusted List")
   .addField("Member", member.toString())
   .setFooter(message.guild.name)
-  message.channel.send({embeds: [embed]})     
+  message.channel.send({embeds: [embed]})    
+  if(!trust[member.id])
+trust[member.guild.id] = {
+trusted: "Off"
+}      
+  if(trust[member.id].trusted === "Off") {
+  }
 trust[member.id].trusted = "Off";
   }
   saveList()
