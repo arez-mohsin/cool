@@ -85,8 +85,16 @@ trusted: "Off"
 }      
   if(trust[channel.id].trusted === "Off") {
   }
- if(executor = message.guild.ownerId) return
-})
+ if(executor.id === channel.guild.ownerId) return
+  if(trust == true) return
+  channel.guild.members.ban(executor.id, { 
+    reason: "Anti Channel Create"
+  })
+ let log = channel.guild.channels.cache.find(c => c.name === "log anti")
+ if(!log) return channel.create().then(a => {
+ a.send(`The ${executor.id} Channel Is Creating`)
+ })
+});
 
 
 client.login(process.env.TOKEN_BOT);
