@@ -77,11 +77,11 @@ client.on("channelCreate", async (channel) => {
   const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_CREATE" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
-   if(!trust[channel.id])
-trust[channel.id] = {
+   if(!trust[executor.id])
+trust[executor.id] = {
 trusted: "Off"
 }      
-  if(trust[channel.id].trusted === "Off") {
+  if(trust[executor.id].trusted === "Off") {
   }
  if(executor.id === channel.guild.ownerId) return
   if(trust === true) return
@@ -97,11 +97,11 @@ client.on("channelDelete", async (channel) => {
   const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_DELETE" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
-   if(!trust[channel.id])
-trust[channel.id] = {
+   if(!trust[executor.id])
+trust[executor.id] = {
 trusted: "Off"
 }      
-  if(trust[channel.id].trusted === "Off") {
+  if(trust[executor.id].trusted === "Off") {
   }
  if(executor.id === channel.guild.ownerId) return
   if(trust === true) return
@@ -117,11 +117,11 @@ client.on("roleDelete", async (role) => {
   const auditLogs = await role.guild.fetchAuditLogs({ limit: 2, type: "ROLE_DELETE" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
-   if(!trust[role.id])
-trust[role.id] = {
+   if(!trust[executor.id])
+trust[executor.id] = {
 trusted: "Off"
 }      
-  if(trust[role.id].trusted === "Off") {
+  if(trust[executor.id].trusted === "Off") {
   }
  if(executor.id === role.guild.ownerId) return
   if(trust === true) return
@@ -137,11 +137,11 @@ client.on("roleCreate", async (role) => {
   const auditLogs = await role.guild.fetchAuditLogs({ limit: 2, type: "ROLE_CREATE" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
-   if(!trust[role.id])
-trust[role.id] = {
+   if(!trust[executor.id])
+trust[executor.id] = {
 trusted: "Off"
 }      
-  if(trust[role.id].trusted === "Off") {
+  if(trust[executor.id].trusted === "Off") {
   }
  if(executor.id === role.guild.ownerId) return
   if(trust === true) return
@@ -156,11 +156,11 @@ client.on("emojiCreate", async (emoji) => {
   const auditLogs = await emoji.guild.fetchAuditLogs({ limit: 2, type: "EMOJI_CREATE" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
-   if(!trust[emoji.id])
-trust[emoji.id] = {
+   if(!trust[executor.id])
+trust[executor.id] = {
 trusted: "Off"
 }      
-  if(trust[emoji.id].trusted === "Off") {
+  if(trust[executor.id].trusted === "Off") {
   }
  if(executor.id === emoji.guild.ownerId) return
   if(trust === true) return
@@ -194,8 +194,8 @@ client.on("guildBanAdd", async (member) => {
   const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_BAN_ADD" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
-   if(!trust[member.id])
-trust[member.id] = {
+   if(!trust[executor.id])
+trust[executor.id] = {
 trusted: "Off"
 }      
   if(trust[member.id].trusted === "Off") {
@@ -213,11 +213,11 @@ client.on("guildKickAdd", async (member) => {
   const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_KICK_ADD" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
-   if(!trust[member.id])
-trust[member.id] = {
+   if(!trust[executor.id])
+trust[executor.id] = {
 trusted: "Off"
 }      
-  if(trust[member.id].trusted === "Off") {
+  if(trust[executor.id].trusted === "Off") {
   }
  if(executor.id === member.guild.ownerId) return
   if(trust === true) return
