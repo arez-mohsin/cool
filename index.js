@@ -85,13 +85,73 @@ trusted: "Off"
   }
  if(executor.id === channel.guild.ownerId) return
   if(trust == true) return
-  let role = channel.guild.roles.cache.find(r => r.permissions.has('ADMINISTRATOR' || 'MANAGE_CHANNELS'))
-  channel.guild.members.roles.remove(executor.id, { 
+
+  channel.guild.members.kick(executor.id, { 
     reason: "Anti Channel Create"
   })
  channel.guild.owner.send(`The ${executor.id} Channel Is Creating`)
  
 });
+
+client.on("channelDelete", async (channel) => {
+  const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_DELETE" });
+  const logs = auditLogs.entries.first();
+  const { executor, target } = logs;
+   if(!trust[channel.id])
+trust[channel.id] = {
+trusted: "Off"
+}      
+  if(trust[channel.id].trusted === "Off") {
+  }
+ if(executor.id === channel.guild.ownerId) return
+  if(trust == true) return
+
+  channel.guild.members.kick(executor.id, { 
+    reason: "Anti Channel Delete"
+  })
+ channel.guild.owner.send(`The ${executor.id} Channel Is Deleting`)
+ 
+});
+
+client.on("roleDelete", async (role) => {
+  const auditLogs = await role.guild.fetchAuditLogs({ limit: 2, type: "ROLE_DELETE" });
+  const logs = auditLogs.entries.first();
+  const { executor, target } = logs;
+   if(!trust[role.id])
+trust[role.id] = {
+trusted: "Off"
+}      
+  if(trust[role.id].trusted === "Off") {
+  }
+ if(executor.id === role.guild.ownerId) return
+  if(trust == true) return
+
+  role.guild.members.kick(executor.id, { 
+    reason: "Anti Role Delete"
+  })
+ role.guild.owner.send(`The ${executor.id} Role Is Deleting`)
+ 
+});
+
+client.on("roleCreate", async (role) => {
+  const auditLogs = await role.guild.fetchAuditLogs({ limit: 2, type: "ROLE_CREATE" });
+  const logs = auditLogs.entries.first();
+  const { executor, target } = logs;
+   if(!trust[role.id])
+trust[role.id] = {
+trusted: "Off"
+}      
+  if(trust[role.id].trusted === "Off") {
+  }
+ if(executor.id === role.guild.ownerId) return
+  if(trust == true) return
+
+  role.guild.members.kick(executor.id, { 
+    reason: "Anti Role Create"
+  })
+ role.guild.owner.send(`The ${executor.id} Role Is Deleting`)
+})
+//By MrBlackJack
 
 
 client.login(process.env.TOKEN_BOT);
