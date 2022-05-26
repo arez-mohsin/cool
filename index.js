@@ -149,9 +149,83 @@ trusted: "Off"
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Create"
   })
- role.guild.owner.send(`The ${executor.id} Role Is Deleting`)
+ role.guild.owner.send(`The ${executor.id} Role Is Creating`)
 })
-//By MrBlackJack
 
+client.on("emojiCreate", async (emoji) => {
+  const auditLogs = await emoji.guild.fetchAuditLogs({ limit: 2, type: "EMOJI_CREATE" });
+  const logs = auditLogs.entries.first();
+  const { executor, target } = logs;
+   if(!trust[emoji.id])
+trust[emoji.id] = {
+trusted: "Off"
+}      
+  if(trust[emoji.id].trusted === "Off") {
+  }
+ if(executor.id === emoji.guild.ownerId) return
+  if(trust == true) return
+
+  emoji.guild.members.kick(executor.id, { 
+    reason: "Anti Emoji Create"
+  })
+ emoji.guild.owner.send(`The ${executor.id} Emoji Is Creating`)
+});
+
+client.on("emojiDelete", async (emoji) => {
+  const auditLogs = await emoji.guild.fetchAuditLogs({ limit: 2, type: "EMOJI_DELETE" });
+  const logs = auditLogs.entries.first();
+  const { executor, target } = logs;
+   if(!trust[emoji.id])
+trust[emoji.id] = {
+trusted: "Off"
+}      
+  if(trust[emoji.id].trusted === "Off") {
+  }
+ if(executor.id === emoji.guild.ownerId) return
+  if(trust == true) return
+
+  emoji.guild.members.kick(executor.id, { 
+    reason: "Anti Emoji Deleting"
+  })
+ emoji.guild.owner.send(`The ${executor.id} Emoji Is Deleting`)
+})
+
+client.on("guildBanAdd", async (member) => {
+  const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_BAN_ADD" });
+  const logs = auditLogs.entries.first();
+  const { executor, target } = logs;
+   if(!trust[member.id])
+trust[member.id] = {
+trusted: "Off"
+}      
+  if(trust[member.id].trusted === "Off") {
+  }
+ if(executor.id === member.guild.ownerId) return
+  if(trust == true) return
+
+  member.guild.members.kick(executor.id, { 
+    reason: "Anti Member Ban"
+  })
+ member.guild.owner.send(`The ${executor.id} Has Many Ban Members`)
+})
+
+client.on("guildKickAdd", async (member) => {
+  const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_KICK_ADD" });
+  const logs = auditLogs.entries.first();
+  const { executor, target } = logs;
+   if(!trust[member.id])
+trust[member.id] = {
+trusted: "Off"
+}      
+  if(trust[member.id].trusted === "Off") {
+  }
+ if(executor.id === member.guild.ownerId) return
+  if(trust == true) return
+  
+  member.guild.members.kick(executor.id, { 
+    reason: "Anti Member Kick"
+  })
+ member.guild.owner.send(`The ${executor.id} Has Many Kick Members`)
+})
 
 client.login(process.env.TOKEN_BOT);
