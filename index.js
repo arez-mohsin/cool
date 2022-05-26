@@ -43,7 +43,7 @@ if(!trust[member.id])
 trust[member.id] = {
 trusted: "Off"
 }      
-  if(trust[member.id].Blacklist === "Off") {
+  if(trust[member.id].trusted === "Off") {
     let embed = new MessageEmbed()
   .setTitle("Done Added on Trusted List")
   .addField("Member", member.toString())
@@ -64,7 +64,7 @@ if(!trust[member.id])
 trust[member.id] = {
 trusted: "Off"
 }      
-  if(trust[member.id].Blacklist === "Off") {
+  if(trust[member.id].trusted === "Off") {
     let embed = new MessageEmbed()
   .setTitle("Done Added on Trusted List")
   .addField("Member", member.toString())
@@ -75,6 +75,18 @@ saveList()
   }
 }})
 
+client.on("channelCreate", async (channel) => {
+  const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_CREATE" });
+  const logs = auditLogs.entries.first();
+  const { executor, target } = logs;
+   if(!trust[channel.id])
+trust[channel.id] = {
+trusted: "Off"
+}      
+  if(trust[channel.id].trusted === "Off") {
+  }
+ if(executor = message.guild.ownerId) return
+})
 
 
 client.login(process.env.TOKEN_BOT);
