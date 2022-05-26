@@ -12,7 +12,7 @@ setInterval(
     ),
   300000
 );
-const prefix = "Y";
+const prefix = "B";
 client.on("ready", () => console.log(`${client.user.tag} Telah Online!`));
 
 client.on("ready", () => {
@@ -33,7 +33,7 @@ function saveList() {
   fs.writeFileSync("./trusted.json", JSON.stringify(trust, null, 4));
 }
 client.on("messageCreate", message => {
-if(message.content === prefix + "add trust"){
+if(message.content.startsWith(prefix + "add")){
 if(message.author.id !== message.guild.ownerId) return message.reply("This Command Just Owner Ship Can Use It")
 let args = message.content.split(" ").slice(1).join("")
 let member = message.mentions.users.first()
@@ -50,11 +50,12 @@ trusted: "Off"
   .setFooter(message.guild.name)
   message.channel.send({embeds: [embed]})     
 trust[member.id].trusted = "On";
-saveList()
 }
+  saveList()
 }})
+
  client.on("messageCreate", message => { 
-if(message.content === prefix + "remove"){
+if(message.content.startsWith(prefix + "remove")){
   if(message.author.id !== message.guild.ownerId) return message.reply("This Command Just Owner Ship Can Use It")
 let args = message.content.split(" ").slice(1).join("")
 let member = message.mentions.users.first()
@@ -71,8 +72,8 @@ trusted: "Off"
   .setFooter(message.guild.name)
   message.channel.send({embeds: [embed]})     
 trust[member.id].trusted = "Off";
-saveList()
   }
+  saveList()
 }})
 
 client.on("channelCreate", async (channel) => {
