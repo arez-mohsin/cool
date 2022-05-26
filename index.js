@@ -32,7 +32,7 @@ var trust = require("./trusted.json");
 function saveList() {
   fs.writeFileSync("./trusted.json", JSON.stringify(trust, null, 4));
 }
-client.on("messageCreate", message => {
+client.on("messageCreate", message => {  
 if(message.content.startsWith(prefix + "add")){
 if(message.author.id !== message.guild.ownerId) return message.reply("This Command Just Owner Ship Can Use It")
 let args = message.content.split(" ").slice(1).join("")
@@ -44,7 +44,10 @@ if(!member) return message.reply("Member Not Founded")
   .addField("Member", member.toString())
   .setFooter(message.guild.name)
   message.channel.send({embeds: [embed]})      
-trust[member.id].trusted = "On"
+if(!trust[member.id])
+    trust[member.id] = {
+    trusted: "On"
+}
 }
   saveList()
 })
@@ -60,7 +63,11 @@ if(!member) return message.reply("Member Not Founded")
   .setTitle("Done Added on Trusted List")
   .addField("Member", member.toString())
   .setFooter(message.guild.name)
-  message.channel.send({embeds: [embed]})       
+  message.channel.send({embeds: [embed]}) 
+  if(!trust[member.id])
+    trust[member.id] = {
+    trusted: "Off"
+}
 trust[member.id].trusted = "Off"
   }
   saveList()
@@ -78,13 +85,12 @@ trusted: "Off"
   }
  if(executor.id === channel.guild.ownerId) return
   if(trust == true) return
-  channel.guild.members.ban(executor.id, { 
+  let role = channel.guild.roles.cache.find(r => r.permissions.has('ADMINISTRATOR' || 'MANAGE_CHANNELS'))
+  channel.guild.members.roles.remove(executor.id, { 
     reason: "Anti Channel Create"
   })
- let log = channel.guild.channels.cache.find(c => c.name === "log anti")
- if(!log) return channel.create().then(a => {
- a.send(`The ${executor.id} Channel Is Creating`)
- })
+ channel.guild.owner.send(`The ${executor.id} Channel Is Creating`)
+ 
 });
 
 
