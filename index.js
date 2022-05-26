@@ -34,8 +34,23 @@ function saveList() {
 }
 client.on("messageCreate", message => {
 if(message.content === prefix + "add trust"){
-if(message.author.id !=== message.guild.ownerId) return message.reply("This Command Just Owner Ship Can Use It")
-  }
+if(message.author.id !== message.guild.ownerId) return message.reply("This Command Just Owner Ship Can Use It")
+let args = message.content.split(" ").slice(1).join("")
+let member = message.mentions.users.first()
+if(!args) return message.reply("Please Mention Member To Add Trust List")
+if(!member) return message.reply("Member Not Founded")
+if(!trust[member.id])
+trust[member.id] = {
+trusted: "Off"
+}      
+  if(trust[member.id].Blacklist === "Off") {
+    let embed = new MessageEmbed()
+  .setTitle("Done Added on Trusted List")
+  .addField("Member", member.toString())
+  .setFooter(message.guild.name)
+  message.channel.send({embeds: [embed]})     
+trust[member.id].trusted = "On";
+}}
 })
 
 
