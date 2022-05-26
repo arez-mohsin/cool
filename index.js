@@ -109,7 +109,6 @@ trusted: "Off"
   channel.guild.members.kick(executor.id, { 
     reason: "Anti Channel Delete"
   })
- channel.guild.owner.send(`The ${executor.id} Channel Is Deleting`)
  
 });
 
@@ -129,7 +128,6 @@ trusted: "Off"
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Delete"
   })
- role.guild.owner.send(`The ${executor.id} Role Is Deleting`)
  
 });
 
@@ -149,7 +147,6 @@ trusted: "Off"
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Create"
   })
- role.guild.owner.send(`The ${executor.id} Role Is Creating`)
 })
 
 client.on("emojiCreate", async (emoji) => {
@@ -272,22 +269,10 @@ client.on("messageCreate", message => {
  
  })
 
-client.on("guildMemberAdd", member => {
-   const auditLogs = member.guild.fetchAuditLogs({ limit: 1, type: "BOT_ADD" });
-
-  const logs = auditLogs.entries.first();
-  if (logs) {
-    const { executor, target } = logs;
-    if(!antibots[member.guild.id]) antibots[member.guild.id] = {
-  onoff: 'On'
-  }
+client.on("guildMemberAdd", member => {  
     if(antibots[member.guild.id].onoff === 'On') return;
-  if(member.user.bot) return member.kick("Anti Bots Is On✅")
-  member.guild.members.kick(target.id, { 
-      reason: "illegal bot"
-    });
+  if(member.user.bot) return member.kick()
   saveAbot();
-  }
-})
+  })
 
 client.login(process.env.TOKEN_BOT);
