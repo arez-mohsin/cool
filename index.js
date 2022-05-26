@@ -39,11 +39,6 @@ let args = message.content.split(" ").slice(1).join("")
 let member = message.mentions.users.first()
 if(!args) return message.reply("Please Mention Member To Add Trust List")
 if(!member) return message.reply("Member Not Founded")
-if(!trust[member.id])
-trust[member.id] = {
-trusted: "Off"
-}      
-  if(trust[member.id].trusted === "Off") {
     let embed = new MessageEmbed()
   .setTitle("Done Added on Trusted List")
   .addField("Member", member.toString())
@@ -52,7 +47,7 @@ trusted: "Off"
 trust[member.id].trusted = "On";
 }
   saveList()
-}})
+})
 
  client.on("messageCreate", message => { 
 if(message.content.startsWith(prefix + "remove")){
@@ -61,11 +56,6 @@ let args = message.content.split(" ").slice(1).join("")
 let member = message.mentions.users.first()
 if(!args) return message.reply("Please Mention Member To Add Trust List")
 if(!member) return message.reply("Member Not Founded")
-if(!trust[member.id])
-trust[member.id] = {
-trusted: "Off"
-}      
-  if(trust[member.id].trusted === "Off") {
     let embed = new MessageEmbed()
   .setTitle("Done Added on Trusted List")
   .addField("Member", member.toString())
@@ -74,7 +64,7 @@ trusted: "Off"
 trust[member.id].trusted = "Off";
   }
   saveList()
-}})
+})
 
 client.on("channelCreate", async (channel) => {
   const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_CREATE" });
