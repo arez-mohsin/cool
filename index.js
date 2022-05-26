@@ -233,43 +233,44 @@ function saveAbot() {
     fs.writeFileSync("./antibots.json", JSON.stringify(antibots, null, 4));
 }
 client.on("messageCreate", message => {
-if(message.content.startsWith(prefix + "antibot")) {
-if(message.author.id !== message.guild.ownerId) return message.reply("This Command Only Can Owner Ship It")
-let args = message.content.split(" ").slice(1).join("")
-if(!args) return message.reply(`Use: ${prefix}antibot on or ${prefix}antibot off`)
-if(args === "on"){
-antibots[message.guild.id] = {
+  if (message.content.startsWith(prefix + "antibot on")) {
+    if (message.author.bot || !message.channel.guild) return;
+    if (message.author.id !== message.guild.ownerId)return message.channel.send("**🔐 Sorry just For Owner ship**");
+    antibots[message.guild.id] = {
       onoff: "on"
     };
     saveAbot()
-  let embed = new MessageEmbed()
+         let embed = new MessageEmbed()
         .setThumbnail(message.guild.iconURL())
-        .setTitle("Toggle AntiBot")
+        .setTitle("Toggle Antibot")
         .setDescription("**The Anti Bots Join Is On 🔐 **")
         .addField("**By**", `<@${message.author.id}>`)
         .setColor("9e1c36")
         .setFooter(`${client.user.username}`)
         .setTimestamp()
-        message.channel.send({embeds:[embed]})
-}
-if(args === "off"){
-antibots[message.guild.id] = {
-      onoff: "off"
-    };
-    saveAbot()
-  let embed = new MessageEmbed()
+        message.channel.send({embeds: [embed]})
+  }})
+client.on("messageCreate", message => {
+    if(message.content.startsWith(prefix + "antibot off")) {
+          if(!message.channel.guild) return;
+  if (message.author.id !== message.guild.ownerId) return message.reply("Just For Owner ship")
+  antibots[message.guild.id] = {
+  onoff: 'Off',
+  }
+  saveAbot()
+ 
+      let embed = new MessageEmbed()
         .setThumbnail(message.guild.iconURL())
-        .setTitle("Toggle AntiBot")
-        .setDescription("**The Anti Bots Join Is Off 🔐 **")
+        .setTitle("Toggle Antibot")
+        .setDescription("**The AntiBots Join Is Off 🔐 **")
         .addField("**By**", `<@${message.author.id}>`)
         .setColor("9e1c36")
         .setFooter(`${client.user.username}`)
         .setTimestamp()
-        message.channel.send({embeds: [embed]})
-} 
-  
-   }
-});
+       message.channel.send({embeds: [embed]})
+    }    
+ 
+ })
 
 client.on("guildMemberAdd", member => {
     if(!antibots[member.guild.id]) antibots[member.guild.id] = {
