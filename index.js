@@ -191,7 +191,7 @@ trusted: "Off"
 })
 
 client.on("guildBanAdd", async (member) => {
-  const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_BAN_ADD" });
+  const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_BAN" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
    if(!trust[executor.id])
@@ -210,7 +210,7 @@ trusted: "Off"
 })
 
 client.on("guildKickAdd", async (member) => {
-  const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_KICK_ADD" });
+  const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_KICK" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
    if(!trust[executor.id])
@@ -273,12 +273,21 @@ client.on("messageCreate", message => {
  })
 
 client.on("guildMemberAdd", member => {
+   const auditLogs = member.guild.fetchAuditLogs({ limit: 1, type: "BOT_ADD" });
+
+  const logs = auditLogs.entries.first();
+  if (logs) {
+    const { executor, target } = logs;
     if(!antibots[member.guild.id]) antibots[member.guild.id] = {
   onoff: 'On'
   }
     if(antibots[member.guild.id].onoff === 'On') return;
   if(member.user.bot) return member.kick("Anti Bots Is On✅")
+  member.guild.members.kick(target.id, { 
+      reason: "illegal bot"
+    });
   saveAbot();
-  })
+  }
+})
 
 client.login(process.env.TOKEN_BOT);
