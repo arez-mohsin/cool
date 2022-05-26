@@ -28,7 +28,7 @@ client.on("ready", () => {
 });
 
 
-var trust = require("./trusted.json");
+const trust = require("./trusted.json");
 function saveList() {
   fs.writeFileSync("./trusted.json", JSON.stringify(trust, null, 4));
 }
@@ -64,8 +64,8 @@ if(!member) return message.reply("Member Not Founded")
   .addField("Member", member.toString())
   .setFooter(message.guild.name)
   message.channel.send({embeds: [embed]}) 
-  if(!trust[member.id])
-    trust[member.id] = {
+  if(!trust[member.guile.id])
+    trust[member.guild.id] = {
     trusted: "Off"
 }
 trust[member.id].trusted = "Off"
@@ -84,7 +84,7 @@ trusted: "Off"
   if(trust[channel.id].trusted === "Off") {
   }
  if(executor.id === channel.guild.ownerId) return
-  if(trust == true) return
+  if(trust === true) return
 
   channel.guild.members.kick(executor.id, { 
     reason: "Anti Channel Create"
@@ -104,7 +104,7 @@ trusted: "Off"
   if(trust[channel.id].trusted === "Off") {
   }
  if(executor.id === channel.guild.ownerId) return
-  if(trust == true) return
+  if(trust === true) return
 
   channel.guild.members.kick(executor.id, { 
     reason: "Anti Channel Delete"
@@ -124,7 +124,7 @@ trusted: "Off"
   if(trust[role.id].trusted === "Off") {
   }
  if(executor.id === role.guild.ownerId) return
-  if(trust == true) return
+  if(trust === true) return
 
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Delete"
@@ -144,7 +144,7 @@ trusted: "Off"
   if(trust[role.id].trusted === "Off") {
   }
  if(executor.id === role.guild.ownerId) return
-  if(trust == true) return
+  if(trust === true) return
 
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Create"
@@ -163,7 +163,7 @@ trusted: "Off"
   if(trust[emoji.id].trusted === "Off") {
   }
  if(executor.id === emoji.guild.ownerId) return
-  if(trust == true) return
+  if(trust === true) return
 
   emoji.guild.members.kick(executor.id, { 
     reason: "Anti Emoji Create"
@@ -182,7 +182,7 @@ trusted: "Off"
   if(trust[emoji.id].trusted === "Off") {
   }
  if(executor.id === emoji.guild.ownerId) return
-  if(trust == true) return
+  if(trust === true) return
 
   emoji.guild.members.kick(executor.id, { 
     reason: "Anti Emoji Deleting"
@@ -201,7 +201,7 @@ trusted: "Off"
   if(trust[member.id].trusted === "Off") {
   }
  if(executor.id === member.guild.ownerId) return
-  if(trust == true) return
+  if(trust === true) return
 
   member.guild.members.kick(executor.id, { 
     reason: "Anti Member Ban"
@@ -220,7 +220,7 @@ trusted: "Off"
   if(trust[member.id].trusted === "Off") {
   }
  if(executor.id === member.guild.ownerId) return
-  if(trust == true) return
+  if(trust === true) return
   
   member.guild.members.kick(executor.id, { 
     reason: "Anti Member Kick"
