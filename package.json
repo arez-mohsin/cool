@@ -17,7 +17,8 @@
     "mongoose": "^6.0.12",
     "ytdl-core": "^4.9.1",
     "shuffle": "^0.2.5",
-    "discordutility": "^1.0.0"
+    "discordutility": "^1.0.0",
+    "node-fetch": "^3.2.3"
   },
   "engines": {
     "node": "16.x"

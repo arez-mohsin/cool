@@ -4,6 +4,7 @@ const client = new Client({
 });
 const fs = require("fs");
 const ms = require("ms");
+
 let count = 0;
 setInterval(
   () =>
@@ -12,6 +13,8 @@ setInterval(
     ),
   300000
 );
+
+
 const prefix = "B";
 client.on("ready", () => console.log(`${client.user.tag} Telah Online!`));
 
@@ -21,7 +24,7 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
   console.log("بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ");
   client.user.setPresence({
-    activities: [{ name: `${prefix}help | Long Live MrBlackJack` }],
+    activities: [{ name: `Protection Bot Yato` }],
     status: "dnd"
   });
   console.log(`Logined`);
