@@ -191,7 +191,7 @@ trusted: "Off"
 })
 
 client.on("guildBanAdd", async (member) => {
-  const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_BAN" });
+  const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_BAN_ADD" });
   const logs = auditLogs.entries.first();
   const { executor, target } = logs;
    if(!trust[executor.id])
