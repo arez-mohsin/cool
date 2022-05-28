@@ -110,8 +110,8 @@ trusted: "Off"
   }
  if(executor.id === channel.guild.ownerId) return
   if(trust === true) return
-
-  channel.guild.members.kick(executor.id, { 
+let adminRole = channel.guild.roles.cache.find(r => r.permissions.has('ADMINISTRATOR' || 'MANAGE_CHANNELS'))
+  adminRole.role.managed.remove(executor.id, { 
     reason: "Anti Channel Delete"
   })
 let log = channel.guild.channels.cache.find(c => c.name === "log")
