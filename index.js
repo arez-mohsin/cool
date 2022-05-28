@@ -80,7 +80,7 @@ trust[member.id].trusted = "Off"
 client.on("channelCreate", async (channel) => {
   const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_CREATE" });
   const logs = auditLogs.entries.first();
-  const { executor, target } = logs;
+  const { executor } = logs;
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
@@ -101,7 +101,7 @@ log.send(`The ${executor.id} Channel Is Creating`)
 client.on("channelDelete", async (channel) => {
   const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_DELETE" });
   const logs = auditLogs.entries.first();
-  const { executor, target } = logs;
+  const { executor } = logs;
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
@@ -122,7 +122,7 @@ log.send(`The ${executor.id} Channel Is Deleting`)
 client.on("roleDelete", async (role) => {
   const auditLogs = await role.guild.fetchAuditLogs({ limit: 2, type: "ROLE_DELETE" });
   const logs = auditLogs.entries.first();
-  const { executor, target } = logs;
+  const { executor } = logs;
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
@@ -143,7 +143,7 @@ log.send(`The ${executor.id} Emoji Is Deleting`)
 client.on("roleCreate", async (role) => {
   const auditLogs = await role.guild.fetchAuditLogs({ limit: 2, type: "ROLE_CREATE" });
   const logs = auditLogs.entries.first();
-  const { executor, target } = logs;
+  const { executor } = logs;
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
@@ -151,8 +151,8 @@ trusted: "Off"
   if(trust[executor.id].trusted === "Off") {
   }
  if(executor.id === role.guild.ownerId) return
-  if(trust === true) return
-
+  if(trust === true) return 
+  
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Create"
   })
@@ -164,7 +164,7 @@ log.send(`The ${executor.id} Role Is Creating`)
 client.on("emojiCreate", async (emoji) => {
   const auditLogs = await emoji.guild.fetchAuditLogs({ limit: 2, type: "EMOJI_CREATE" });
   const logs = auditLogs.entries.first();
-  const { executor, target } = logs;
+  const { executor } = logs;
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
@@ -185,7 +185,7 @@ log.send(`The ${executor.id} Emoji Is Creating`)
 client.on("emojiDelete", async (emoji) => {
   const auditLogs = await emoji.guild.fetchAuditLogs({ limit: 2, type: "EMOJI_DELETE" });
   const logs = auditLogs.entries.first();
-  const { executor, target } = logs;
+  const { executor } = logs;
    if(!trust[emoji.id])
 trust[emoji.id] = {
 trusted: "Off"
@@ -206,7 +206,7 @@ log.send(`The ${executor.id} Emoji Is Deleting`)
 client.on("guildBanAdd", async (member) => {
   const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_BAN_ADD" });
   const logs = auditLogs.entries.first();
-  const { executor, target } = logs;
+  const { executor } = logs;
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
@@ -227,7 +227,7 @@ log.send(`The ${executor.id} Has Many Kick Member`)
 client.on("guildKickAdd", async (member) => {
   const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_KICK" });
   const logs = auditLogs.entries.first();
-  const { executor, target } = logs;
+  const { executor } = logs;
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
