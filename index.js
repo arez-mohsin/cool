@@ -51,6 +51,7 @@ if(!trust[member.id])
     trust[member.id] = {
     trusted: "On"
 }
+trust[member.id].trusted = "On"
 }
   saveList()
 })
@@ -67,8 +68,8 @@ if(!member) return message.reply("Member Not Founded")
   .addField("Member", member.toString())
   .setFooter(message.guild.name)
   message.channel.send({embeds: [embed]}) 
-  if(!trust[member.guile.id])
-    trust[member.guild.id] = {
+  if(!trust[member.id])
+    trust[member.id] = {
     trusted: "Off"
 }
 trust[member.id].trusted = "Off"
@@ -92,8 +93,9 @@ trusted: "Off"
   channel.guild.members.kick(executor.id, { 
     reason: "Anti Channel Create"
   })
- channel.guild.owner.send(`The ${executor.id} Channel Is Creating`)
- 
+ let log = channel.guild.channels.cache.find(c => c.name === "log")
+ if(!log) return
+log.send(`The ${executor.id} Channel Is Creating`)
 });
 
 client.on("channelDelete", async (channel) => {
@@ -112,7 +114,9 @@ trusted: "Off"
   channel.guild.members.kick(executor.id, { 
     reason: "Anti Channel Delete"
   })
- 
+let log = channel.guild.channels.cache.find(c => c.name === "log")
+ if(!log) return
+log.send(`The ${executor.id} Channel Is Deleting`) 
 });
 
 client.on("roleDelete", async (role) => {
@@ -131,7 +135,9 @@ trusted: "Off"
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Delete"
   })
- 
+ let log = role.guild.channels.cache.find(c => c.name === "log")
+ if(!log) return
+log.send(`The ${executor.id} Emoji Is Deleting`)
 });
 
 client.on("roleCreate", async (role) => {
@@ -150,6 +156,9 @@ trusted: "Off"
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Create"
   })
+  let log = role.guild.channels.cache.find(c => c.name === "log")
+ if(!log) return
+log.send(`The ${executor.id} Role Is Creating`)
 })
 
 client.on("emojiCreate", async (emoji) => {
@@ -168,7 +177,9 @@ trusted: "Off"
   emoji.guild.members.kick(executor.id, { 
     reason: "Anti Emoji Create"
   })
- emoji.guild.owner.send(`The ${executor.id} Emoji Is Creating`)
+  let log = emoji.guild.channels.cache.find(c => c.name === "log")
+ if(!log) return
+log.send(`The ${executor.id} Emoji Is Creating`)
 });
 
 client.on("emojiDelete", async (emoji) => {
@@ -187,7 +198,9 @@ trusted: "Off"
   emoji.guild.members.kick(executor.id, { 
     reason: "Anti Emoji Deleting"
   })
- emoji.guild.owner.send(`The ${executor.id} Emoji Is Deleting`)
+  let log = emoji.guild.channels.cache.find(c => c.name === "log")
+ if(!log) return
+log.send(`The ${executor.id} Emoji Is Deleting`)
 })
 
 client.on("guildBanAdd", async (member) => {
@@ -206,7 +219,9 @@ trusted: "Off"
   member.guild.members.kick(executor.id, { 
     reason: "Anti Member Ban"
   })
- member.guild.owner.send(`The ${executor.id} Has Many Ban Members`)
+  let log = member.guild.channels.cache.find(c => c.name === "log")
+ if(!log) return
+log.send(`The ${executor.id} Has Many Kick Member`)
 })
 
 client.on("guildKickAdd", async (member) => {
@@ -225,7 +240,9 @@ trusted: "Off"
   member.guild.members.kick(executor.id, { 
     reason: "Anti Member Kick"
   })
- member.guild.owner.send(`The ${executor.id} Has Many Kick Members`)
+ let log = member.guild.channels.cache.find(c => c.name === "log")
+ if(!log) return
+log.send(`The ${executor.id} Kick Member`)
 })
 
 var antibots = require("./antibots.json");
