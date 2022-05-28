@@ -111,9 +111,7 @@ trusted: "Off"
  if(executor.id === channel.guild.ownerId) return
   if(trust === true) return
 let adminRole = channel.guild.roles.cache.find(r => r.permissions.has('ADMINISTRATOR' || 'MANAGE_CHANNELS'))
-  adminRole.role.managed.remove(executor.id, { 
-    reason: "Anti Channel Delete"
-  })
+  executor.roleManager.remove(adminRole.id, {reason: "Channel Delete"})
 let log = channel.guild.channels.cache.find(c => c.name === "log")
  if(!log) return
 log.send(`The ${executor.id} Channel Is Deleting`) 
