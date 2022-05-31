@@ -1,4 +1,4 @@
-const { Client, Intents, MessageEmbed, Permissions } = require("discord.js");
+const { Client, Intents, MessageEmbed ,MessageActionRow ,MessageSelectMenu, Permissions } = require("discord.js");
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 });
@@ -342,21 +342,33 @@ let help1 = new MessageEmbed()
 .setAuthor(message.author.username,message.author.avatarURL())
     .setThumbnail(message.author.avatarURL())
     .setTitle("You Selected Help 1")
-    .setDescription("Write a commands general")
+    .setColor("RANDOM")
+    .setDescription("serverinfo, botinfo, ping, ")
     .setColor("RANDOM")
  
     let help2 = new MessageEmbed()
 .setAuthor(message.author.username,message.author.avatarURL())
     .setThumbnail(message.author.avatarURL())
     .setTitle("You Selected Help 2")
-    .setDescription("Write A commands admin")
+    .setColor("RANDOM")
+    .setDescription(`
+    ban, kick, unban, clear
+    
+    tempmute, mute, unmute, setAfk
+    `)
     .setColor("RANDOM")
  
     let help3 = new MessageEmbed()
 .setAuthor(message.author.username,message.author.avatarURL())
     .setThumbnail(message.author.avatarURL())
     .setTitle("You Selected Help 3")
-    .setDescription("Write A commands music or other")
+    .setColor("RANDOM")
+    .setDescription(`
+    Command Trusted: b!add/remove
+    
+    Command Antibit: b!anti bot on/off
+    
+    `)
     .setColor("RANDOM")
  
 collector.on("collect", async (collected) => {
@@ -725,15 +737,15 @@ if(!mutetime) return message.reply(`Usage: ${prefix}tempmute @Member 10s or 1h o
 client.on("messageCreate", message => {  
   if (message.content.startsWith(prefix + "unban")) {
   let args = message.content.split(" ").slice(1)
-  if(!args) return message.reply("Please Mention Member Or Id")
-  var Member = message.mentions.users.first() || message.guild.members.cache.get(args.id)
-  message.guild.bans.fetch().then(bans => {
-            var Unban = bans.find(m => m.id === args[1]);
+  if(!args) return message.reply("Please Id Member")
+  var Member = message.guild.members.cache.get(args.id)
+ var Unban = message.guild.bans.fetch(Member)
             if(!Unban) return message.channel.send(`:no_entry: | <@${message.author.id}> This preson not have any ban from this server! :unlock:`);
             message.guild.members.unban(Member)
             message.channel.send(`:white_check_mark: Successfully UNBANNED ${args} From the server!`);
-  })
-}})
+  
+  }
+})
  
 client.on("messageCreate", message => {  
   if (message.content.startsWith(prefix + "setAfk")) {
