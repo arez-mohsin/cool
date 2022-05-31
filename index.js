@@ -5,10 +5,11 @@ const client = new Client({
 const fs = require("fs");
 const ms = require("ms");
 
+
 let count = 0;
 setInterval(
   () =>
-    require("node-fetch")(process.env.URL).then(() =>
+    require("monitor")(process.env.URL).then(() =>
       console.log(`[${++count}] here i pinged ${process.env.URL}`)
     ),
   300000
@@ -352,7 +353,7 @@ let help1 = new MessageEmbed()
     .setTitle("You Selected Help 2")
     .setColor("RANDOM")
     .setDescription(`
-    ban, kick, unban, clear
+    ban, kick, clear
     
     tempmute, mute, unmute, setAfk
     `)
@@ -406,12 +407,7 @@ client.on("messageCreate", black => {
       .addField(`**Boosts**`, `${black.guild.premiumSubscriptionCount}`, true)
       .addField("**Roles:**", ` ${black.guild.roles.cache.size}`)
       .addField("AFK Timeout", black.guild.afkTimeout / 60 + " minutes", true)
-      .setFooter(`Requested | ${black.author.tag}`, black.author.avatarURL())
-      .addField('**Onlines**',`${black.guild.members.cache.filter(m=>m.presenceStatus == 'online').size}`)
-      .addField('**DO NOT DISTRUB**',`${black.guild.members.cache.filter(m=>m.presenceStatus == 'dnd').size}`)
-      .addField('**Idle**',`${black.guild.members.cache.filter(m=>m.presenceStatus == 'idle').size}`)
-      .addField('**Offlines**',`${black.guild.members.cache.filter(m=>m.presenceStatus == 'offline').size}`)
-      .addField('**All Members**',`${black.guild.memberCount}`)
+      .setFooter(`Requested | ${black.author.tag}`, black.author.avatarURL()) 
       .setColor("RANDOM")
       .setTimestamp();
     black.channel.send({ embeds: [embed]})
@@ -734,18 +730,7 @@ if(!mutetime) return message.reply(`Usage: ${prefix}tempmute @Member 10s or 1h o
 }
 });
  
-client.on("messageCreate", message => {  
-  if (message.content.startsWith(prefix + "unban")) {
-  let args = message.content.split(" ").slice(1)
-  if(!args) return message.reply("Please Id Member")
-  var Member = message.guild.members.cache.get(args.id)
- var Unban = message.guild.bans.fetch(Member)
-            if(!Unban) return message.channel.send(`:no_entry: | <@${message.author.id}> This preson not have any ban from this server! :unlock:`);
-            message.guild.members.unban(Member)
-            message.channel.send(`:white_check_mark: Successfully UNBANNED ${args} From the server!`);
-  
-  }
-})
+
  
 client.on("messageCreate", message => {  
   if (message.content.startsWith(prefix + "setAfk")) {
