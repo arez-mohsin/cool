@@ -6,14 +6,7 @@ const fs = require("fs");
 const ms = require("ms");
 
 
-let count = 0;
-setInterval(
-  () =>
-    require("monitor")(process.env.URL).then(() =>
-      console.log(`[${++count}] here i pinged ${process.env.URL}`)
-    ),
-  300000
-);
+
 
 
 const prefix = "b!";
