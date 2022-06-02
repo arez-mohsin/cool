@@ -30,7 +30,7 @@ client.on("ready", () => {
 
 let antihack = JSON.parse(fs.readFileSync('./antihack.json' , 'utf8'));
 client.on('messageCreate', message => {
-            if(message.content.startsWith(prefix + "tAntihack on")) {
+            if(message.content.startsWith(prefix + "antinuke on")) {
                 if(!message.channel.guild) return;
               if (message.author.id !== message.guild.ownerId) return message.reply("You Dont Have Owner SHIP")               
         antihack[message.guild.id] = {
@@ -38,7 +38,7 @@ client.on('messageCreate', message => {
         }
  
        let embed = new MessageEmbed()
-                      .setTitle('**✅Done Check The Toggle Security is On**')
+                      .setTitle('**✅Done The Toggle Security is On**')
                       .addField('Name Server', message.guild.name)
                       .addField('Toggle', `${antihack[message.guild.id].onoff}`)
                       .addField('By', `${message.author.username}`)
@@ -55,14 +55,14 @@ client.on('messageCreate', message => {
  
                 })
 client.on('messageCreate', message => {
-            if(message.content.startsWith(prefix + "tAntihack off")) {
+            if(message.content.startsWith(prefix + "antinuke off")) {
                 if(!message.channel.guild) return;
           if (message.author.id !== message.guild.ownerId) return message.reply("You Dont Have Owner SHIP")
         antihack[message.guild.id] = {
         onoff: 'Off',
         }
        let embed = new MessageEmbed()
-                      .setTitle('**✅Done Check The Toggle Security is Off**')
+                      .setTitle('**✅Done The Toggle Security is Off**')
                       .addField('Name Server', message.guild.name)
                       .addField('Toggle', `${antihack[message.guild.id].onoff}`)
                       .addField('By', `${message.author.username}`)
@@ -86,7 +86,7 @@ client.on("channelCreate", async (channel) => {
   const { executor } = logs;
   if (!antihack[channel.guild.id])
       antihack[channel.guild.id] = {
-        onoff: "Off"
+        onoff: "On"
       };
           if (antihack[channel.guild.id].onoff === "Off") return;    
  if(executor.id === channel.guild.ownerId) return
@@ -104,17 +104,10 @@ client.on("channelDelete", async (channel) => {
   const { executor } = logs;
   if (!antihack[channel.guild.id])
       antihack[channel.guild.id] = {
-        onoff: "Off"
+        onoff: "On"
       };
-          if (antihack[channel.guild.id].onoff === "Off") return
-   if(!trust[executor.id])
-trust[executor.id] = {
-trusted: "Off"
-}      
-  if(trust[executor.id].trusted === "Off") {
-  }
+          if (antihack[channel.guild.id].onoff === "Off") return 
  if(executor.id === channel.guild.ownerId) return
-  if(trust === true) return
   executor.guild.members.kick(executor.id, {reason: "Channel Delete"})
 let log = channel.guild.channels.cache.find(c => c.name === "log")
  if(!log) return
@@ -127,18 +120,10 @@ client.on("roleDelete", async (role) => {
   const { executor } = logs;
   if (!antihack[role.guild.id])
       antihack[role.guild.id] = {
-        onoff: "Off"
+        onoff: "On"
       };
-          if (antihack[role.guild.id].onoff === "Off") return
-   if(!trust[executor.id])
-trust[executor.id] = {
-trusted: "Off"
-}      
-  if(trust[executor.id].trusted === "Off") {
-  }
+         if (antihack[role.guild.id].onoff === "Off") return
  if(executor.id === role.guild.ownerId) return
-  if(trust === true) return
-
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Delete"
   })
@@ -153,7 +138,7 @@ client.on("roleCreate", async (role) => {
   const { executor } = logs;
   if (!antihack[role.guild.id])
       antihack[role.guild.id] = {
-        onoff: "Off"
+        onoff: "On"
       };
           if (antihack[role.guild.id].onoff === "Off") return
   
@@ -173,7 +158,7 @@ client.on("emojiCreate", async (emoji) => {
   const { executor } = logs;
   if (!antihack[emoji.guild.id])
       antihack[emoji.guild.id] = {
-        onoff: "Off"
+        onoff: "On"
       };
           if (antihack[emoji.guild.id].onoff === "Off") return
  if(executor.id === emoji.guild.ownerId) return
@@ -191,7 +176,7 @@ client.on("emojiDelete", async (emoji) => {
   const { executor } = logs;
   if (!antihack[emoji.guild.id])
       antihack[emoji.guild.id] = {
-        onoff: "Off"
+        onoff: "On"
       };
           if (antihack[emoji.guild.id].onoff === "Off") return  
  if(executor.id === emoji.guild.ownerId) return
@@ -360,7 +345,7 @@ let help1 = new MessageEmbed()
     .setTitle("You Selected Help 3")
     .setColor("RANDOM")
     .setDescription(`
-    Command Trusted: b!add/remove
+    Command Trusted: b!antinuke on/off
     
     Command Antibit: b!anti bot on/off
     
