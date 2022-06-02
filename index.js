@@ -28,65 +28,68 @@ client.on("ready", () => {
 
  
 
-const trust = require("./trusted.json");
-function saveList() {
-  fs.writeFileSync("./trusted.json", JSON.stringify(trust, null, 4));
-}
-client.on("messageCreate", message => {  
-if(message.content.startsWith(prefix + "add")){
-if(message.author.id !== message.guild.ownerId) return message.reply("This Command Just Owner Ship Can Use It")
-let args = message.content.split(" ").slice(1).join("")
-let member = message.mentions.users.first()
-if(!args) return message.reply("Please Mention Member To Add Trust List")
-if(!member) return message.reply("Member Not Founded")
-    let embed = new MessageEmbed()
-  .setTitle("Done Added on Trusted List")
-  .addField("Member", member.toString())
-  .setFooter(message.guild.name)
-  message.channel.send({embeds: [embed]})      
-if(!trust[member.id])
-    trust[member.id] = {
-    trusted: "On"
-}
-trust[member.id].trusted = "On"
-}
-  saveList()
-})
-
- client.on("messageCreate", message => { 
-if(message.content.startsWith(prefix + "remove")){
-  if(message.author.id !== message.guild.ownerId) return message.reply("This Command Just Owner Ship Can Use It")
-let args = message.content.split(" ").slice(1).join("")
-let member = message.mentions.users.first()
-if(!args) return message.reply("Please Mention Member To Add Trust List")
-if(!member) return message.reply("Member Not Founded")
-    let embed = new MessageEmbed()
-  .setTitle("Done Added on Trusted List")
-  .addField("Member", member.toString())
-  .setFooter(message.guild.name)
-  message.channel.send({embeds: [embed]}) 
-  if(!trust[member.id])
-    trust[member.id] = {
-    trusted: "Off"
-}
-trust[member.id].trusted = "Off"
-  }
-  saveList()
-})
+let antihack = JSON.parse(fs.readFileSync('./antihack.json' , 'utf8'));
+client.on('messageCreate', message => {
+            if(message.content.startsWith(prefix + "tAntihack on")) {
+                if(!message.channel.guild) return;
+              if (message.author.id !== message.guild.ownerId) return message.reply("You Dont Have Owner SHIP")               
+        antihack[message.guild.id] = {
+        onoff: 'On',
+        }
+ 
+       let embed = new MessageEmbed()
+                      .setTitle('**✅Done Check The Toggle Security is On**')
+                      .addField('Name Server', message.guild.name)
+                      .addField('Toggle', `${antihack[message.guild.id].onoff}`)
+                      .addField('By', `${message.author.username}`)
+                      .setThumbnail(message.author.avatarURL())
+                      .setFooter(`${client.user.username}`)                  
+                     message.channel.send({embeds: [embed]})       
+                        fs.writeFile("./antihack.json", JSON.stringify(antihack), (err) => {
+            if (err) console.error(err)
+            .catch(err => {
+              console.error(err);
+          });
+            });
+                  }
+ 
+                })
+client.on('messageCreate', message => {
+            if(message.content.startsWith(prefix + "tAntihack off")) {
+                if(!message.channel.guild) return;
+          if (message.author.id !== message.guild.ownerId) return message.reply("You Dont Have Owner SHIP")
+        antihack[message.guild.id] = {
+        onoff: 'Off',
+        }
+       let embed = new MessageEmbed()
+                      .setTitle('**✅Done Check The Toggle Security is Off**')
+                      .addField('Name Server', message.guild.name)
+                      .addField('Toggle', `${antihack[message.guild.id].onoff}`)
+                      .addField('By', `${message.author.username}`)
+                      .setThumbnail(message.author.avatarURL())
+                      .setFooter(`${client.user.username}`)                  
+                     message.channel.send({embeds: [embed]})                  
+                    fs.writeFile("./antihack.json", JSON.stringify(antihack), (err) => {
+            if (err) console.error(err)
+            .catch(err => {
+              console.error(err);
+          });
+            });
+                  }
+ 
+               })
+ 
 
 client.on("channelCreate", async (channel) => {
   const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_CREATE" });
   const logs = auditLogs.entries.first();
   const { executor } = logs;
-   if(!trust[executor.id])
-trust[executor.id] = {
-trusted: "Off"
-}      
-  if(trust[executor.id].trusted === "Off") {
-  }
+  if (!antihack[channel.guild.id])
+      antihack[channel.guild.id] = {
+        onoff: "Off"
+      };
+          if (antihack[channel.guild.id].onoff === "Off") return;    
  if(executor.id === channel.guild.ownerId) return
-  if(trust === true) return
-
   channel.guild.members.kick(executor.id, { 
     reason: "Anti Channel Create"
   })
@@ -99,6 +102,11 @@ client.on("channelDelete", async (channel) => {
   const auditLogs = await channel.guild.fetchAuditLogs({ limit: 2, type: "CHANNEL_DELETE" });
   const logs = auditLogs.entries.first();
   const { executor } = logs;
+  if (!antihack[channel.guild.id])
+      antihack[channel.guild.id] = {
+        onoff: "Off"
+      };
+          if (antihack[channel.guild.id].onoff === "Off") return
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
@@ -117,6 +125,11 @@ client.on("roleDelete", async (role) => {
   const auditLogs = await role.guild.fetchAuditLogs({ limit: 2, type: "ROLE_DELETE" });
   const logs = auditLogs.entries.first();
   const { executor } = logs;
+  if (!antihack[role.guild.id])
+      antihack[role.guild.id] = {
+        onoff: "Off"
+      };
+          if (antihack[role.guild.id].onoff === "Off") return
    if(!trust[executor.id])
 trust[executor.id] = {
 trusted: "Off"
@@ -138,14 +151,13 @@ client.on("roleCreate", async (role) => {
   const auditLogs = await role.guild.fetchAuditLogs({ limit: 2, type: "ROLE_CREATE" });
   const logs = auditLogs.entries.first();
   const { executor } = logs;
-   if(!trust[executor.id])
-trust[executor.id] = {
-trusted: "Off"
-}      
-  if(trust[executor.id].trusted === "Off") {
-  }
+  if (!antihack[role.guild.id])
+      antihack[role.guild.id] = {
+        onoff: "Off"
+      };
+          if (antihack[role.guild.id].onoff === "Off") return
+  
  if(executor.id === role.guild.ownerId) return
-  if(trust === true) return 
   
   role.guild.members.kick(executor.id, { 
     reason: "Anti Role Create"
@@ -159,15 +171,12 @@ client.on("emojiCreate", async (emoji) => {
   const auditLogs = await emoji.guild.fetchAuditLogs({ limit: 2, type: "EMOJI_CREATE" });
   const logs = auditLogs.entries.first();
   const { executor } = logs;
-   if(!trust[executor.id])
-trust[executor.id] = {
-trusted: "Off"
-}      
-  if(trust[executor.id].trusted === "Off") {
-  }
+  if (!antihack[emoji.guild.id])
+      antihack[emoji.guild.id] = {
+        onoff: "Off"
+      };
+          if (antihack[emoji.guild.id].onoff === "Off") return
  if(executor.id === emoji.guild.ownerId) return
-  if(trust === true) return
-
   emoji.guild.members.kick(executor.id, { 
     reason: "Anti Emoji Create"
   })
@@ -180,15 +189,12 @@ client.on("emojiDelete", async (emoji) => {
   const auditLogs = await emoji.guild.fetchAuditLogs({ limit: 2, type: "EMOJI_DELETE" });
   const logs = auditLogs.entries.first();
   const { executor } = logs;
-   if(!trust[emoji.id])
-trust[emoji.id] = {
-trusted: "Off"
-}      
-  if(trust[emoji.id].trusted === "Off") {
-  }
+  if (!antihack[emoji.guild.id])
+      antihack[emoji.guild.id] = {
+        onoff: "Off"
+      };
+          if (antihack[emoji.guild.id].onoff === "Off") return  
  if(executor.id === emoji.guild.ownerId) return
-  if(trust === true) return
-
   emoji.guild.members.kick(executor.id, { 
     reason: "Anti Emoji Deleting"
   })
@@ -201,15 +207,12 @@ client.on("guildBanAdd", async (member) => {
   const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_BAN_ADD" });
   const logs = auditLogs.entries.first();
   const { executor } = logs;
-   if(!trust[executor.id])
-trust[executor.id] = {
-trusted: "Off"
-}      
-  if(trust[member.id].trusted === "Off") {
-  }
+  if (!antihack[member.guild.id])
+      antihack[member.guild.id] = {
+        onoff: "Off"
+      };
+          if (antihack[member.guild.id].onoff === "Off") return 
  if(executor.id === member.guild.ownerId) return
-  if(trust === true) return
-
   member.guild.members.kick(executor.id, { 
     reason: "Anti Member Ban"
   })
@@ -222,14 +225,13 @@ client.on("guildKickAdd", async (member) => {
   const auditLogs = await member.guild.fetchAuditLogs({ limit: 2, type: "MEMBER_KICK" });
   const logs = auditLogs.entries.first();
   const { executor } = logs;
-   if(!trust[executor.id])
-trust[executor.id] = {
-trusted: "Off"
-}      
-  if(trust[executor.id].trusted === "Off") {
-  }
+  if (!antihack[member.guild.id])
+      antihack[member.guild.id] = {
+        onoff: "Off"
+      };
+          if (antihack[member.guild.id].onoff === "Off") return
+   
  if(executor.id === member.guild.ownerId) return
-  if(trust === true) return
   
   member.guild.members.kick(executor.id, { 
     reason: "Anti Member Kick"
@@ -571,7 +573,7 @@ message.channel.send({embeds: [embed]})
 client.on('messageCreate', async message => {
   
   if (message.content.startsWith(prefix + "lock")) {
-    if (!message.member.permissions.has("MANAGE_CHANNELS")) return
+    if (!message.member.permissions.has("MANAGE_CHANNELS"))
       return message.channel.send("**Please Check Your Permissions**");
     message.channel.permissionOverwrites.create(message.guild.id, { SEND_MESSAGES: false })
     .then(() => {
@@ -603,7 +605,6 @@ client.on('messageCreate', async message => {
   }
 });
 client.on("messageCreate", message => {
-  
 if (message.content.startsWith(prefix + "ban")) {
 if (!message.member.permissions.has("BAN_MEMBERS")) return
 let args = message.content.split(" ").slice(1)
@@ -621,6 +622,7 @@ let embed = new MessageEmbed()
 message.channel.send({ embeds: [embed] })
 }
 });
+
 client.on("messageCreate", message => {  
 if (message.content.startsWith(prefix + "kick")) {
 if (!message.member.permissions.has("BAN_MEMBERS")) return
@@ -665,6 +667,7 @@ message.channel.send({embeds: [embed]})
  
 if(warns[user.id].warns == 2){
 let muterole = message.guild.roles.cache.find(c => c.name === "Muted")
+if(!muterole) return message.reply("Please First Create Role **Muted**")
 let mutetime = "58s"
 user.roles.add(muterole)
 message.channel.send("Done Have Been Muted")
@@ -677,7 +680,7 @@ setTimeout(function(){
  
 if(warns[user.id].warns == 3){
 message.guild.members.ban(user,{reason: [reason]})
-message.reply("Band Kra Bahoy Hala Krdn 3 jar")
+message.reply("Has Been Banned Because Have A 3 Reason")
 saveWarning()
 }
 }}
