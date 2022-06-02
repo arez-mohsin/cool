@@ -9,7 +9,7 @@ const ms = require("ms");
 
 
 
-const prefix = "b!";
+const prefix = "M";
 client.on("ready", () => console.log(`${client.user.tag} Telah Online!`));
 
 client.on("ready", () => {
@@ -194,7 +194,7 @@ client.on("guildBanAdd", async (member) => {
   const { executor } = logs;
   if (!antihack[member.guild.id])
       antihack[member.guild.id] = {
-        onoff: "Off"
+        onoff: "On"
       };
           if (antihack[member.guild.id].onoff === "Off") return 
  if(executor.id === member.guild.ownerId) return
@@ -212,7 +212,7 @@ client.on("guildKickAdd", async (member) => {
   const { executor } = logs;
   if (!antihack[member.guild.id])
       antihack[member.guild.id] = {
-        onoff: "Off"
+        onoff: "On"
       };
           if (antihack[member.guild.id].onoff === "Off") return
    
@@ -345,9 +345,9 @@ let help1 = new MessageEmbed()
     .setTitle("You Selected Help 3")
     .setColor("RANDOM")
     .setDescription(`
-    Command Trusted: b!antinuke on/off
+    antinuke on/off
     
-    Command Antibit: b!anti bot on/off
+    anti bot on/off
     
     `)
     .setColor("RANDOM")
