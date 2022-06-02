@@ -26,7 +26,24 @@ client.on("ready", () => {
 
 
 
- 
+ client.on('messageCreate', message => {
+    if (message.content.startsWith(prefix + "se gif")) {
+        var bj = "BLACK JACK"
+        var args = message.content.split(" ").slice(2);
+          let id = /[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/.exec(args)  
+    if (!id) return message.reply('You did\'nt input a valid emoji or it is a default Discord emote!');
+            message.channel.send('https://cdn.discordapp.com/emojis/' + id + '.gif');
+    }
+})
+client.on('messageCreate', message => {
+    if (message.content.startsWith(prefix + "se static")) {
+     var bj = "BLACK JACK"
+        var args = message.content.split(" ").slice(2);
+          let id = /[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/.exec(args)  
+    if (!id) return message.reply('You did\'nt input a valid emoji or it is a default Discord emote!');
+            message.channel.send('https://cdn.discordapp.com/emojis/' + id + '.png');
+    }
+})
 
 let antihack = JSON.parse(fs.readFileSync('./antihack.json' , 'utf8'));
 client.on('messageCreate', message => {
