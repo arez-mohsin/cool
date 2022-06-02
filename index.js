@@ -409,8 +409,7 @@ mssg.delete(35000)
 })
 }});      
  
-client.on('messageCreate', message => {
-  
+client.on('messageCreate', message => { 
             if(message.content.startsWith(prefix + "membercount")) {
 let all = message.guild.memberCount
 let users = message.guild.members.cache.filter(member => !member.user.bot).size
@@ -430,7 +429,19 @@ client.on('messageCreate', message => {
             if(message.content.startsWith(prefix + "")) {
 }
 })
- 
+ client.on("messageCreate", message => {
+  if(message.channel.type === "dm") return;
+if(message.author.bot) return; 
+  if (message.content.startsWith(prefix + "ping")) {
+    let user = message.mentions.members.first() || message.author;
+    let ping = new MessageEmbed()
+      .setTitle("Info Ms")
+      .setColor("RANDOM")
+      .addField("User", user.toString())
+      .addField("Ping", `${Date.now() - message.createdTimestamp}ms`);
+    message.channel.send({ embeds: [ping] });
+  }
+});
 client.on('messageCreate', async message => {  
   if (message.content.startsWith(prefix + "mute")) {
 if(!message.member.permissions.has("MANAGE_CHANNELS")) return message.reply("You Dont Have Permission `MANAGE_CHANNELS`")
