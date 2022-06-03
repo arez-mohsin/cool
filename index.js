@@ -107,7 +107,7 @@ client.on("channelCreate", async (channel) => {
       };
           if (antihack[channel.guild.id].onoff === "Off") return;    
  if(executor.id === channel.guild.ownerId) return
-  channel.guild.members.kick(executor.id, { 
+  channel.guild.users.kick(executor.id, { 
     reason: "Anti Channel Create"
   })
  let log = channel.guild.channels.cache.find(c => c.name === "log")
@@ -125,7 +125,7 @@ client.on("channelDelete", async (channel) => {
       };
           if (antihack[channel.guild.id].onoff === "Off") return 
  if(executor.id === channel.guild.ownerId) return
-  executor.guild.members.kick(executor.id, {reason: "Channel Delete"})
+  channel.guild.users.kick(executor.id, {reason: "Channel Delete"})
 let log = channel.guild.channels.cache.find(c => c.name === "log")
  if(!log) return
 log.send(`The ${executor.id} Channel Is Deleting`) 
@@ -141,7 +141,7 @@ client.on("roleDelete", async (role) => {
       };
          if (antihack[role.guild.id].onoff === "Off") return
  if(executor.id === role.guild.ownerId) return
-  role.guild.members.kick(executor.id, { 
+  role.guild.users.kick(executor.id, { 
     reason: "Anti Role Delete"
   })
  let log = role.guild.channels.cache.find(c => c.name === "log")
