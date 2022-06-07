@@ -48,8 +48,8 @@ client.on('messageCreate', message => {
 let antihack = JSON.parse(fs.readFileSync('./antihack.json' , 'utf8'));
 client.on('messageCreate', message => {
             if(message.content.startsWith(prefix + "antinuke on")) {
-                if(!message.channel.guild) return;
-              if (message.author.id !== message.guild.ownerId) return message.reply("You Dont Have Owner SHIP")               
+                if(!message.channel.guild) return;           
+                            if (message.author.id !== message.guild.ownerId) return message.reply("You Dont Have Owner SHIP")    
         antihack[message.guild.id] = {
         onoff: 'On',
         }
