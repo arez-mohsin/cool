@@ -758,4 +758,18 @@ client.on("messageCreate", message => {
   } 
 });
 
+var fake = require("./antifake.json");
+function saveFake() {
+    fs.writeFileSync("./antifake.json", JSON.stringify(fake, null, 4));
+}
+client.on("messageCreate", message => {
+   if(message.channel.type === "dm") return;
+if(message.author.bot) return; 
+if(message.content === prefix + "setDay") {
+if(message.guild.permissions.has("MANAGE_GUILD")) return message.reply("Check Your Permission And On The `MANAGE_GUILDS`")
+if(message.guild.me.permissions.has("MANAGE_GUILD")) return message.reply("Check My Permission And On The `MANAGE_GUILDS`")
+if
+   }
+})
+
 client.login(process.env.TOKEN_BOT);
