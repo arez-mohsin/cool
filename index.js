@@ -768,7 +768,15 @@ if(message.author.bot) return;
 if(message.content === prefix + "setDay") {
 if(message.guild.permissions.has("MANAGE_GUILD")) return message.reply("Check Your Permission And On The `MANAGE_GUILDS`")
 if(message.guild.me.permissions.has("MANAGE_GUILD")) return message.reply("Check My Permission And On The `MANAGE_GUILDS`")
-if
+let args = message.content.split(" ").slice(1).join(" ")
+if(!args) return message.reply("Write A Number To Setup Day Accounts Fake")
+if(isNaN(args)) return message.reply("Opps | You Just Write Number, Use: MsetDay 7 or 30")
+let embed = new MessageEmbed()  
+.setTitle(`${message.guild.name}`)
+.setDescription(`Done Day Account Fake Setup`)
+.addField("Day Account", args.toString())
+.addField("Moderation", message.author.id)
+message.channel.send({embeds: [embed]})
    }
 })
 
