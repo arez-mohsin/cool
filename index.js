@@ -772,6 +772,7 @@ let time = message.content.split(" ").slice(1).join(" ")
 if(!time) return message.reply("Write A Number To Setup Day Accounts Fake")
 if(isNaN(time)) return message.reply("Opps | Please Just Write A Number Such 7 or 30 Days")
 let embed = new MessageEmbed()  
+.setThumbnail(message.guild.iconURL())
 .setTitle(`${message.guild.name}`)
 .setDescription(`Done Day Account Fake Setup`)
 .addField("Day Account", `${time}`)
@@ -781,6 +782,15 @@ fake[message.author.id] = {
 time: time
 }
    }
+});
+client.on("guildMemberAdd", member => {
+let AcTime = fake[member.guild.id].time
+let moment2 = require('moment-duration-format'),
+        moment = require("moment"),
+        date = moment.duration(new Date() - member.user.createdAt).format("d")
+if(date < AcTime) {
+member.ban({reason: `${fake[member.guild.id]} Its Account Created On ${date}`})
+}
 });
 
 client.login(process.env.TOKEN_BOT);
