@@ -244,6 +244,28 @@ client.on("guildKickAdd", async (member) => {
  if(!log) return
 log.send(`The ${executor.id} Kick Member`)
 })
+client.on("webhookUpdate", async (webhook) => {
+  const auditLog = await webhook.guild.fetchAuditLogs({ limit: 2, type: "WEBHOOK_CREATE" });
+  const logs = auditLog.entries.first();
+  const { executor, target } = logs;
+  if (!antihack[webhook.guild.id])
+      antihack[webhook.guild.id] = {
+        onoff: "On"
+      };
+          if (antihack[webhook.guild.id].onoff === "Off") return
+   
+  if (executor.id === webhook.guild.ownerId) return;
+  webhook.guild.members.kick(executor.id, {
+    reason: "Anti Webhook Create"
+  });
+  let channel = webhook.guild.channels.cache.find(ch => ch.name === "log")
+  if(!channel) return
+  let embed = new MessageEmbed()
+  .setTitle(`${client.guild.name}`)
+  .setThumbnail(`${webhook.guild.iconURL()}`)
+  .setDescription(`It's Nuker Was Creating Webhook <@${executor.id}>`)
+  channel.send({embeds: [embed]})
+});
 
 var antibots = require("./antibots.json");
 function saveAbot() {
