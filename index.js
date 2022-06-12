@@ -110,6 +110,7 @@ client.on("channelCreate", async (channel) => {
   channel.guild.members.kick(executor.id, { 
     reason: "Anti Channel Create"
   })
+channel.delete()
  let log = channel.guild.channels.cache.find(c => c.name === "log")
  if(!log) return
 log.send(`The ${executor.id} Channel Is Creating`)
@@ -125,6 +126,7 @@ client.on("channelDelete", async (channel) => {
       };
           if (antihack[channel.guild.id].onoff === "Off") return 
  if(executor.id === channel.guild.ownerId) return
+  channel.clone()
   channel.guild.members.kick(executor.id, {reason: "Channel Delete"})
 let log = channel.guild.channels.cache.find(c => c.name === "log")
  if(!log) return
