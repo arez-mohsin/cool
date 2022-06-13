@@ -857,20 +857,20 @@ role: role
 saveCatchpa()
 });
 client.on('messageReactionAdd', async (reaction, user) => {
-                    if (reaction.message.partial) await reaction.message.fetch();
                     if (reaction.partial) await reaction.fetch();
                     if (user.bot) return;
                     if (!reaction.message.guild) return;
  
-                    if (reaction.message.channel.id == verifyd[reaction.guild.id].channel) {
-                        if (reaction.emoji.name === yellowTeamEmoji) {
-                            await reaction.message.guild.members.cache.get(user.id).roles.add(yellowTeamRole);
-                            await reaction.message.guild.members.cache.get(user.id).roles.remove(blueTeamRole);
+                    if (reaction.channel.id == verifyd[reaction.guild.id].channel) {
+                        if (reaction.emoji.name === verifyd[reaction.guild.id].role) {
+                          let react = verifyd[reaction.guild.id]
+                            await reaction.guild.members.cache.get(user.id).roles.add();
+                    
                         }
                     } else {
                         return;
                     }
- 
+ saveCatchpa()
                 });
 
 client.login(process.env.TOKEN_BOT);
