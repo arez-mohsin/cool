@@ -826,20 +826,21 @@ function saveCatchpa() {
     fs.writeFileSync("./verify.json", JSON.stringify(warns, null, 4));
 }
 client.on("messageCreate", message => {  
-if (message.content.startsWith(prefix + "setVerify")) {
+if (message.content.startsWith(prefix + "set-verify")) {
 if (!message.member.permissions.has("MANAGE_GUILD")) return
-let role = message.mentions.roles.first()
+let args = message.content.split(" ").slice(1)
+let channel = message.content.split(" ").slice(2).join(" ")
+if(!channel || args) return message.reply("Use: Mset-verify #channel #role")
 let embed = new MessageEmbed()
-.setTitle(`${message.guild.name}`)
+.setTitle(`${client.guild.name}`)
 .setThumbnail(`${message.guild.iconURL()}`)
 .setDescription("Done Setup Role Catchpa")
-.addField("Role", role.toString())
+.addField("Channel", args[1].toString())
+.addField("Role", args[2].toString())
+.setFooter(`${message.author.tag}`)
 .setTimestamp()
 .setColor("RANDOM")
-message.channel
-verifyd[message.guild.id] = {
-role: role
-}
+m
 }
 });
 client.login(process.env.TOKEN_BOT);
