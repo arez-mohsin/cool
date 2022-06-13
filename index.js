@@ -390,6 +390,10 @@ let help1 = new MessageEmbed()
     
     anti bot on/off
     
+    setDay 7 or 30
+    
+    Anti Fake Account
+    
     `)
     .setColor("RANDOM")
  
