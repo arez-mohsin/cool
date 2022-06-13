@@ -821,4 +821,13 @@ member.ban({reason: `${fake[member.guild.id]} Its Account Created On ${date}`})
 }
 });
 
+var verifyd = require("./verify.json");
+function saveCat() {
+    fs.writeFileSync("./warning.json", JSON.stringify(warns, null, 4));
+}
+client.on("messageCreate", message => {  
+if (message.content.startsWith(prefix + "warning")) {
+if (!message.member.permissions.has("MANAGE_GUILD")) return
+let user = message.mentions.members.first()
+
 client.login(process.env.TOKEN_BOT);
