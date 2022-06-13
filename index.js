@@ -854,31 +854,22 @@ role: role
 }
 saveCatchpa()
 }});
-client.on('message', message => {                      
-    if(!message.channel.guild) return;
-       if(message.content.startsWith(prefix + 'captcha')) {
-        let modlog = client.channels.find('name', "Name Room Actvite"); //You Can Change  Room name
-       if(!message.channel.guild) return message.channel.send("**This Command For Servers Only.**").then(m => m.delete(5000));
-       var x = ['5587' ,' 9978' , '3785' , '7734' , '9864' , '7681' , '3758' , '7834' , '3489' , '1382' , '7389' , '8762' , '0889' , '0388' , '3316' , '0976' , '8603' , '1842' , '4565' , '9524' , '9524' , '0964' , '5930' , '5678' , '9567' , '6099' , '7058' , '0001' , '1324' , '9834' , '7668' , '0378' , '7055' , '9733' , '9876' , '9846' , '9685' , '8574' , '8975' , '9845' , '9862' , '0069' , '0807' , '0673' , '0813' , '1235' , '6879'];
+client.on('messageCreate', message => {                      
+    if(!message.channel.guild || message.author.bot) return;
+       if(message.content.startsWith(prefix + 'verify')) {
 var x2 = ['5587' ,' 9978' , '3785' , '7734' , '9864' , '7681' , '3758' , '7834' , '3489' , '1382' , '7389' , '8762' , '0889' , '0388' , '3316' , '0976' , '8603' , '1842' , '4565' , '9524' , '9524' , '0964' , '5930' , '5678' , '9567' , '6099' , '7058' , '0001' , '1324' , '9834' , '7668' , '0378' , '7055' , '9733' , '9876' , '9846' , '9685' , '8574' , '8975' , '9845' , '9862' , '0069' , '0807' , '0673' , '0813' , '1235' , '6879'];
-        var x3 = Math.floor(Math.random()*x.length)
-       message.channel.sendMessage(`${x[x3]}`+`\n **Type The Number To Verify**`).then(msg => {
-          var r = message.channel.awaitMessages(msg => msg.content == x2[x3], { maxMatches : 1, time : 60000, errors : ['time'] })
-               r.catch(() => {
+        var x3 = x2[Math.floor(Math.random()* x2.length)]
+       message.channel.send(`${x3}`+`\n **Type The Number To Verify**`).then(msg => {
+          message.channel.send(msg => msg.content == x2[x3], { maxMatches : 1, time : 60000, errors : ['time'] })
             message.delete()
-            r.delete()
             msg.delete()
         })
-  r.then(s=> { 
-let verify =message.guild.roles.cache.find(r => r.name === verifyd[message.guild.name].role)
-
-msg.delete();
+let verify = message.guild.roles.cache.find(r => r.name === verifyd[message.guild.name].role)
+message.member.roles.add(verify)
 message.author.send(`**You Verified Now.**`)
-     
-})
-})
-}
-});
+       
+  }})
+
 
 client.login(process.env.TOKEN_BOT);
 
