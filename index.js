@@ -856,19 +856,18 @@ role: role
 )}
 saveCatchpa()
 });
-client.on('messageReactionAdd', async (reaction, user) => {  
-                     if (reaction.channel.name == verifyd[reaction.guild.id].channel) {
-                       if(reaction.roles.name == verifyd[reaction.guild.id].role)     {  
-                   const react = verifyd[reaction.guild.id].role  
-                   user.react("✅").then(l => {
-                        l.roles.add(react)
-                   })
 
- saveCatchpa()
-                
-                     }
-             }
-})
+client.on("messageReactionAdd",(reaction,user)=>{
+  if(!user) return;
+  if(user.bot)return;
+  if(!reaction.channel.guild) return;
+  if(reaction.channel.name === verifyd[reaction.guild.id].channel)
+  if(reaction.emoji.name === "✅"){
+    let role = reaction.guild.roles.cache.find(r => r.name == verifyd[reaction.guild.id].role);          
+    reaction.guild.members(user).roles.add(role).catch(console.error);
+  }
+  saveCatchpa()
+});
 
 
 client.login(process.env.TOKEN_BOT);
