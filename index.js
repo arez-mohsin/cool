@@ -859,9 +859,9 @@ saveCatchpa()
 client.on('messageReactionAdd', async (reaction, user) => {  
                      if (reaction.channel.id == verifyd[reaction.guild.id].channel) {
                        if(reaction.roles.id == verifyd[reaction.guild.id].role)
-                        if (reaction.emoji.name === "✅") {
+                        if (user.react === "✅") {
                           let react = verifyd[reaction.guild.id].role
-                            reaction.guild.members.cache.get(user).roles.add(react)
+                            user.roles.add(react)
  }
 
  saveCatchpa()
