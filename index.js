@@ -829,7 +829,6 @@ client.on("messageCreate", message => {
 if (message.content.startsWith(prefix + "setVerify")) {
 if (!message.member.permissions.has("MANAGE_GUILD")) return
 let role = message.mentions.roles.first()
-let role1 = message.guild.channels.cache.find(r => r.name === role)
 let embed = new MessageEmbed()
 .setTitle(`${message.guild.name}`)
 .setThumbnail(`${message.guild.iconURL()}`)
@@ -837,8 +836,9 @@ let embed = new MessageEmbed()
 .addField("Role", role.toString())
 .setTimestamp()
 .setColor("RANDOM")
+message.channel
 verifyd[message.guild.id] = {
-role: role1
+role: role
 }
 }
 });
