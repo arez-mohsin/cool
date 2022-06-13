@@ -858,14 +858,12 @@ saveCatchpa()
 });
 
 client.on("messageReactionAdd",(reaction,user)=>{
-  if(!user) return;
-  if(user.bot)return;
-  if(!reaction.channel.guild) return;
-  if(reaction.channel.name === verifyd[reaction.guild.id].channel)
+  if(reaction.channel.name === verifyd[reaction.guild.id].channel) {
   if(reaction.emoji.name === "✅"){
     let role = reaction.guild.roles.cache.find(r => r.name == verifyd[reaction.guild.id].role);          
-    reaction.guild.members(user).roles.add(role).catch(console.error);
+    reaction.message.guild.member(user).roles.add(role).catch(console.error);
   }
+}
   saveCatchpa()
 });
 
