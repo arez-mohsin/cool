@@ -857,16 +857,19 @@ role: role
 saveCatchpa()
 });
 client.on('messageReactionAdd', async (reaction, user) => {  
-                     if (reaction.channel.id == verifyd[reaction.guild.id].channel) {
-                       if(reaction.roles.id == verifyd[reaction.guild.id].role)
-                        if (user.react === "✅") {
-                          let react = verifyd[reaction.guild.id].role
-                            user.roles.add(react)
- }
+                     if (reaction.channel.name == verifyd[reaction.guild.id].channel) {
+                       if(reaction.roles.name == verifyd[reaction.guild.id].role)     {  
+                   const react = verifyd[reaction.guild.id].role  
+                   user.react("✅").then(l => {
+                        l.roles.add(react)
+                   })
 
  saveCatchpa()
-                }
-});
+                
+                     }
+             }
+})
+
 
 client.login(process.env.TOKEN_BOT);
 
