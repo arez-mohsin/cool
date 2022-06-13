@@ -822,12 +822,25 @@ member.ban({reason: `${fake[member.guild.id]} Its Account Created On ${date}`})
 });
 
 var verifyd = require("./verify.json");
-function saveCat() {
-    fs.writeFileSync("./warning.json", JSON.stringify(warns, null, 4));
+function saveCatchpa() {
+    fs.writeFileSync("./verify.json", JSON.stringify(warns, null, 4));
 }
 client.on("messageCreate", message => {  
-if (message.content.startsWith(prefix + "warning")) {
+if (message.content.startsWith(prefix + "set-verify")) {
 if (!message.member.permissions.has("MANAGE_GUILD")) return
-let user = message.mentions.members.first()
-
+let args = message.content.split(" ").slice(1)
+let channel = message.content.split(" ").slice(2).join(" ")
+if(!channel || args) return message.reply("Use: Mset-verify #channel #role")
+let embed = new MessageEmbed()
+.setTitle(`${client.guild.name}`)
+.setThumbnail(`${message.guild.iconURL()}`)
+.setDescription("Done Setup Role Catchpa")
+.addField("Channel", args[1].toString())
+.addField("Role", args[2].toString())
+.setFooter(`${message.author.tag}`)
+.setTimestamp()
+.setColor("RANDOM")
+m
+}
+});
 client.login(process.env.TOKEN_BOT);
