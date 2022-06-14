@@ -856,8 +856,11 @@ const msg_filter = (m) => m.author.id === message.author.id;
 message.channel.awaitMessages({ filter: msg_filter, max: 1 })
   .then((collected) => {
     collected.first().delete()
-  message.channel.send()
+  messageArray = collected.first().content;
+  message.channel.send(messageArray).then(m => {
+m.react("✅")
   });
+})
 }
  )}
 });
