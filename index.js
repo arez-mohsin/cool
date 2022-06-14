@@ -1,6 +1,6 @@
 const { Client, Intents, MessageEmbed ,MessageActionRow ,MessageSelectMenu, Permissions } = require("discord.js");
 const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]
 });
 const fs = require("fs");
 const ms = require("ms");
@@ -860,20 +860,16 @@ saveCatchpa()
 });
 client.on('messageCreate', message => {    
     if(!message.channel.guild) return;
-       if(message.content.startsWith(prefix + 'captcha')) {
-         let emoji = ["💩"]
-
-  let filter = (reaction, user) => emoji.includes(reaction.emoji.name) && user.id === message.author.id
-
-  // add roles
-
+       if(message.content.startsWith(prefix + 'verify')) {
+         let emoji = ["✅"]
+         let roless = verifyd[message.guild.id].role
+  var filter = (reaction, user) => emoji.includes(reaction.emoji.name) && user.id === message.author.id
   let embed = new MessageEmbed()
     .setTitle("Roles")
     .setDescription(`
     React with: ${emoji[0]}
     `)
-
-  message.channel.send(embed).then(async msg => {
+  message.channel.send({embeds: [embed]}).then(async msg => {
       await msg.react(emoji[0])
       msg.awaitReaction(filter, {
         max: 1,
@@ -881,7 +877,8 @@ client.on('messageCreate', message => {
         errors: ['time']
       }).then(collected => {
         const reaction = collected.first()
-        switch (reaction.emoji.name) {
+        filter.roles.add(roless)
+        switch (reaction.emoji.name) {      
           case emoji[0]: 
             console.log("Hei")
             break;
