@@ -848,20 +848,21 @@ saveEvent()
 client.on("messageCreate", message => {
 if(message.content.startsWith(prefix + "event")) {
 let messageArray = message.content.split(" ")
-let count = + 1
 message.channel.send('Done, First A Photo').then(msg => {
 const msg_filter = (m) => m.author.id === message.author.id;
 message.channel.awaitMessages({ filter: msg_filter, max: 1 })
   .then((collected) => {
     collected.first().delete()
   messageArray = collected.first().content;
+  msg.delete()
   let embed = new MessageEmbed()
-  .setTitle(`<@${message.author.id}> ${count}`)
+  .setTitle(`<@${message.author.id}>`)
   .setImage(`${messageArray}`)
   .setFooter(`${message.guild.name}`)
   .setColor("RANDOM")
   message.channel.send({embeds: [embed]}).then(m => {
 m.react("✅")
+if(m)
   });
 })
 }
