@@ -828,22 +828,19 @@ function saveEvent() {
 client.on("messageCreate", message => {  
 if (message.content.startsWith(prefix + "set-event")) {
 if (!message.member.permissions.has("MANAGE_GUILD")) return
-let role = message.mentions.roles.first()
 let channel = message.mentions.channels.first()
-if(!role || !channel) return message.reply("Use: Mset-event #role #channel")
+if(!channel) return message.reply("Use: Mset-event #channel")
 let embed = new MessageEmbed()
 .setTitle(`${message.guild.name}`)
 .setThumbnail(`${message.guild.iconURL()}`)
-.setDescription("Done Setup Role Catchpa")
+.setDescription("Done Setup Channel Event")
 .addField("Channel", channel.toString())
-.addField("Role", role.toString())
 .setFooter(`${message.author.tag}`)
 .setTimestamp()
 .setColor("RANDOM")
 message.channel.send({embeds: [embed]})
 verifyd[message.guild.id] = {
 channel: channel,
-role: role,
 }
 saveEvent()
 }
@@ -851,13 +848,21 @@ saveEvent()
 client.on("messageCreate", message => {
 if(message.content.startsWith(prefix + "event")) {
 let messageArray = message.content.split(" ")
+let count = 1 + 100
 message.channel.send('Done, First A Photo').then(msg => {
 const msg_filter = (m) => m.author.id === message.author.id;
 message.channel.awaitMessages({ filter: msg_filter, max: 1 })
   .then((collected) => {
     collected.first().delete()
   messageArray = collected.first().content;
-  message.channel.send(messageArray).then(m => {
+  let channel = message.guild.channels.cache.find(ch => ch.name === verifyd[message.guild.id].channel)
+  if(!channel) return message.reply("Not Now Setup Channel")
+  let embed = new MessageEmbed()
+  .setTitle(`<@${message.author.id}> ${count}`)
+  .setImage(messageArray)
+  .setFooter(message.guild.name)
+  .setColor("RANDOM")
+  channel.send({embeds: [embed]}).then(m => {
 m.react("✅")
   });
 })
