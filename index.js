@@ -862,7 +862,6 @@ message.channel.awaitMessages({ filter: msg_filter, max: 1 })
   .setColor("RANDOM")
   message.channel.send({embeds: [embed]}).then(m => {
 m.react("✅")
-if(m)
   });
 })
 }
