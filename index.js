@@ -854,7 +854,27 @@ role: role
 }
 saveCatchpa()
 }});
+client.on("messageReactionAdd", async (reaction, user) => {
+  let hz  = verifyd[reaction.guild.id].role
+    let emoji = reaction.emoji;
+if (reaction.message.partial) await reaction.message.fetch();
+  if (emoji.name == "✅") {
+    if(reaction.message.chan)
+    if (user === client.user) return;
+    reaction.users.remove(user);   
+    let firs = "✅"
+  
+    const collected = await firs.awaitReactions(filter, {
+      max: 1
+    })
+   const filter = (user) => {
+      return (emoji.name === firs) && user.bot === false;
 
-
+    if (collected.first().emoji.name === firs) {
+    user.roles.add(hz)
+       
+}
+   }
+}})
 client.login(process.env.TOKEN_BOT);
 
