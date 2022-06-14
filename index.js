@@ -856,28 +856,42 @@ role: role,
 message: rolis
 }
 saveCatchpa()
-}});
-client.on("messageReactionAdd", ({ message: { channel } }, user , reaction) => {
-  if (channel.guild.name === verifyd[channel.guild.id].channel) {
-  let roles = verifyd[channel.guild.id].role
-  if(reaction.emoji.name === "✅")
-    channel.guild.members
-      .fetch(user)
-      .then(member => {
-        member.roles
-          .add(roles)
-          .then(() => {
-            console.log(
-              `The ${verifyd[channel.guild.id].role} has been removed from member ${user.tag} successfully!`
-            );
-          })
-          .catch(e => console.error("Error adding role"));
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
+}
 });
+client.on('messageCreate', message => {    
+    if(!message.channel.guild) return;
+       if(message.content.startsWith(prefix + 'captcha')) {
+         let emoji = ["💩"]
+
+  let filter = (reaction, user) => emoji.includes(reaction.emoji.name) && user.id === message.author.id
+
+  // add roles
+
+  let embed = new MessageEmbed()
+    .setTitle("Roles")
+    .setDescription(`
+    React with: ${emoji[0]}
+    `)
+
+  message.channel.send(embed).then(async msg => {
+      await msg.react(emoji[0])
+      msg.awaitReaction(filter, {
+        max: 1,
+        time: 30000,
+        errors: ['time']
+      }).then(collected => {
+        const reaction = collected.first()
+        switch (reaction.emoji.name) {
+          case emoji[0]: 
+            console.log("Hei")
+            break;
+        }
+      }).catch(err => {
+      })
+      
+  })
+}})
+       
 
 client.login(process.env.TOKEN_BOT);
 
