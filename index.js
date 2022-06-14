@@ -822,24 +822,15 @@ member.ban({reason: `${fake[member.guild.id]} Its Account Created On ${date}`})
 });
 
 var verifyd = require("./verify.json");
-function saveCatchpa() {
+function saveEvent() {
     fs.writeFileSync("./verify.json", JSON.stringify(warns, null, 4));
 }
 client.on("messageCreate", message => {  
-if (message.content.startsWith(prefix + "set-verify")) {
+if (message.content.startsWith(prefix + "set-event")) {
 if (!message.member.permissions.has("MANAGE_GUILD")) return
 let role = message.mentions.roles.first()
 let channel = message.mentions.channels.first()
-if(!role || !channel) return message.reply("Use: Mset-verify #role #channel")
-let rolis = new MessageEmbed()
-.setTitle(`${message.guild.name}`)
-.setThumbnail(`${message.guild.iconURL()}`)
-.setDescription("To Verify Type, Yverify")
-.setTimestamp()
-.setColor("RANDOM")
-channel.send({embeds: [rolis]}).then(m => {
-m.react("✅")
-})
+if(!role || !channel) return message.reply("Use: Mset-event #role #channel")
 let embed = new MessageEmbed()
 .setTitle(`${message.guild.name}`)
 .setThumbnail(`${message.guild.iconURL()}`)
@@ -853,41 +844,16 @@ message.channel.send({embeds: [embed]})
 verifyd[message.guild.id] = {
 channel: channel,
 role: role,
-message: rolis
 }
-saveCatchpa()
+saveEvent()
 }
 });
-client.on('messageCreate', message => {    
-    if(!message.channel.guild) return;
-       if(message.content.startsWith(prefix + 'verify')) {
-         let emoji = ["✅"]
-         let roless = verifyd[message.guild.id].role
-  var filter = (reaction, user) => emoji.includes(reaction.emoji.name) && user.id === message.author.id
-  let embed = new MessageEmbed()
-    .setTitle("Roles")
-    .setDescription(`
-    React with: ${emoji[0]}
-    `)
-  message.channel.send({embeds: [embed]}).then(async msg => {
-      await msg.react(emoji[0])
-      msg.awaitReaction(filter, {
-        max: 1,
-        time: 30000,
-        errors: ['time']
-      }).then(collected => {
-        const reaction = collected.first()
-        filter.roles.add(roless)
-        switch (reaction.emoji.name) {      
-          case emoji[0]: 
-            console.log("Hei")
-            break;
-        }
-      }).catch(err => {
-      })
-      
-  })
-}})
+client.on("messageCreate", message => {
+if(message.content.startsWith(prefix + "event")) {
+message.channel.send("For Event, Ask To Dm")
+message.author.send("سڵاو لەتۆش بێت بۆ بەژداری کردن لە ئیڤێنت پێشەکی وێنەیەک بنێرە")
+}
+});
        
 
 client.login(process.env.TOKEN_BOT);
