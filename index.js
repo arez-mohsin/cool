@@ -848,21 +848,19 @@ saveEvent()
 client.on("messageCreate", message => {
 if(message.content.startsWith(prefix + "event")) {
 let messageArray = message.content.split(" ")
-let count = 1 + 100
+let count = + 1
 message.channel.send('Done, First A Photo').then(msg => {
 const msg_filter = (m) => m.author.id === message.author.id;
 message.channel.awaitMessages({ filter: msg_filter, max: 1 })
   .then((collected) => {
     collected.first().delete()
   messageArray = collected.first().content;
-  let channel = message.guild.channels.cache.find(ch => ch.name === verifyd[message.guild.id].channel)
-  if(!channel) return message.reply("Not Now Setup Channel")
   let embed = new MessageEmbed()
   .setTitle(`<@${message.author.id}> ${count}`)
-  .setImage(messageArray)
-  .setFooter(message.guild.name)
+  .setImage(`${messageArray}`)
+  .setFooter(`${message.guild.name}`)
   .setColor("RANDOM")
-  channel.send({embeds: [embed]}).then(m => {
+  message.channel.send({embeds: [embed]}).then(m => {
 m.react("✅")
   });
 })
