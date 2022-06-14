@@ -867,6 +867,39 @@ m.react("✅")
 }
  )}
 });
+ 
+client.on("messageCreate", message => {
+if(message.content.startsWith(prefix + "cv")) {
+let messageArray = message.content.split(" ")
+let name = []
+let programing = []
+message.channel.send('ناوی بەڕێزت؟').then(msg => {
+const msg_filter = (m) => m.author.id === message.author.id;
+message.channel.awaitMessages({ filter: msg_filter, max: 1 })
+  .then((collected) => {
+   collected.first().delete()
+name = collected.first().content;
+  msg.edit(`لە بواری پرۆگرامینگی دیسکۆرد لە چ شتێک شارەزایت؟`).then(msg => {
+const msg_filter = (m) => m.author.id === message.author.id;
+message.channel.awaitMessages({ filter: msg_filter, max: 1 })
+  .then((collected) => {
+   collected.first().delete()
+programing = collected.first().content
+  msg.delete()
+  let embed = new MessageEmbed()
+  .setTitle(`${message.guild.name}`)
+  .addField("Name Sir", name.toString())
+  .addField("Level Programming", programing.toString())
+  .setFooter(`${message.guild.name}`)
+  .setColor("RANDOM")
+  message.channel.send({embeds: [embed]}).then(m => {
+m.react("✅")
+  });
+})
+}
+)}
+ )}
+ )}})
        
 
 client.login(process.env.TOKEN_BOT);
