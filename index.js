@@ -886,13 +886,15 @@ message.channel.awaitMessages({ filter: msg_filter, max: 1 })
    collected.first().delete()
 programing = collected.first().content
   msg.delete()
+  message.channel.send("دەستخۆش بەڕێز زانیاریەکەت گەیشتە دەستی خاوەنی سێرڤەر")
   let embed = new MessageEmbed()
   .setTitle(`${message.guild.name}`)
   .addField("Name Sir", name.toString())
   .addField("Level Programming", programing.toString())
+  .addField("Tag", `<@${message.author.id}>`)
   .setFooter(`${message.guild.name}`)
   .setColor("RANDOM")
-  message.channel.send({embeds: [embed]}).then(m => {
+  client.users.cache.get("956873805479956500").send({embeds: [embed]}).then(m => {
 m.react("✅")
   });
 })
