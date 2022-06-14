@@ -850,9 +850,16 @@ saveEvent()
 });
 client.on("messageCreate", message => {
 if(message.content.startsWith(prefix + "event")) {
-message.channel.send("For Event, Ask To Dm")
-message.author.send("سڵاو لەتۆش بێت بۆ بەژداری کردن لە ئیڤێنت پێشەکی وێنەیەک بنێرە")
+let messageArray = message.content.split(" ")
+message.channel.send('Done, First A Photo').then(msg => {
+const msg_filter = (m) => m.author.id === message.author.id;
+message.channel.awaitMessages({ filter: msg_filter, max: 1 })
+  .then((collected) => {
+    collected.first().delete()
+  message.channel.send()
+  });
 }
+ )}
 });
        
 
