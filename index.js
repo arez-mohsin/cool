@@ -837,7 +837,9 @@ let rolis = new MessageEmbed()
 .setDescription("To Verify Type, Yverify")
 .setTimestamp()
 .setColor("RANDOM")
-channel.send({embeds: [rolis]}) 
+channel.send({embeds: [rolis]}).then(m => {
+m.react("✅")
+})
 let embed = new MessageEmbed()
 .setTitle(`${message.guild.name}`)
 .setThumbnail(`${message.guild.iconURL()}`)
@@ -850,31 +852,32 @@ let embed = new MessageEmbed()
 message.channel.send({embeds: [embed]})
 verifyd[message.guild.id] = {
 channel: channel,
-role: role
+role: role,
+message: rolis
 }
 saveCatchpa()
 }});
-client.on("messageReactionAdd", async (reaction, user) => {
-  let hz  = verifyd[reaction.guild.id].role
-    let emoji = reaction.emoji;
-if (reaction.message.partial) await reaction.message.fetch();
-  if (emoji.name == "✅") {
-    if(reaction.message.chan)
-    if (user === client.user) return;
-    reaction.users.remove(user);   
-    let firs = "✅"
-  
-    const collected = await firs.awaitReactions(filter, {
-      max: 1
-    })
-   const filter = (user) => {
-      return (emoji.name === firs) && user.bot === false;
+client.on("messageReactionAdd", ({ message: { channel } }, user , reaction) => {
+  if (channel.guild.name === verifyd[channel.guild.id].channel) {
+  let roles = verifyd[channel.guild.id].role
+  if(reaction.emoji.name === "✅")
+    channel.guild.members
+      .fetch(user)
+      .then(member => {
+        member.roles
+          .add(roles)
+          .then(() => {
+            console.log(
+              `The ${verifyd[channel.guild.id].role} has been removed from member ${user.tag} successfully!`
+            );
+          })
+          .catch(e => console.error("Error adding role"));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+});
 
-    if (collected.first().emoji.name === firs) {
-    user.roles.add(hz)
-       
-}
-   }
-}})
 client.login(process.env.TOKEN_BOT);
 
