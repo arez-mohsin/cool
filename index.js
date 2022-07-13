@@ -1031,4 +1031,63 @@ client.on("messageCreate", (message) => {
   }
 });
 
+client.on("messageCreate", (message) => {
+
+  if (message.content.startsWith(prefix + "antinuke off")) {
+
+    if (!message.channel.guild) return;
+
+    if (message.author.id !== message.guild.ownerId)
+
+      return message.reply("You Dont Have Owner SHIP");
+
+   // antihack[message.guild.id] = {
+
+     // onoff: "Off",
+
+    //};
+
+let args = message.content.split(" ").slice(1)
+
+let guild = Guild.findOne({ guildID: message.guild.id });
+
+     
+
+if (args[1] === "off") {
+
+         guild.bot.onoff = "off";
+
+         guild.save();
+
+    let embed = new MessageEmbed()
+
+      .setTitle("**✅Done The Toggle Security is Off**")
+
+      .addField("Name Server", message.guild.name)
+
+      .addField("Toggle", `${antihack[message.guild.id].onoff}`)
+
+      .addField("By", `${message.author.username}`)
+
+      .setThumbnail(message.author.avatarURL())
+
+      .setFooter(`${client.user.username}`);
+
+    message.channel.send({ embeds: [embed] });
+
+    fs.writeFile("./antihack.json", JSON.stringify(antihack), (err) => {
+
+      if (err)
+
+        console.error(err).catch((err) => {
+
+          console.error(err);
+
+        });
+
+    });
+
+  }
+
+}}); 
 client.login(process.env.TOKEN_BOT);
